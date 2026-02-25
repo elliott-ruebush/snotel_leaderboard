@@ -1,0 +1,218 @@
+let currentUnit = 'metric'; // 'metric' or 'imperial'
+let cachedData = null;
+
+const METRIC_CONFIGS = [
+    {
+        id: 'deepest_dumps_24h',
+        title: 'Deepest Dumps (24h)',
+        icon: '❄️',
+        desc: 'Highest magnitude snow depth changes in the past 24 hours.',
+        type: 'snow'
+    },
+    {
+        id: 'deepest_dumps_48h',
+        title: 'Deepest Dumps (48h)',
+        icon: '🌨️',
+        desc: 'Highest magnitude snow depth change over the past 48 hours.',
+        type: 'snow'
+    },
+    {
+        id: 'deepest_dumps_7d',
+        title: 'Deepest Dumps (7d)',
+        icon: '☃️',
+        desc: 'Highest magnitude snow depth change over the past 7 days.',
+        type: 'snow'
+    },
+    {
+        id: 'base_builders',
+        title: 'Biggest Bases (Snow Depth)',
+        icon: '🏔️',
+        desc: 'Stations with the highest current snow depth.',
+        type: 'snow'
+    },
+    {
+        id: 'water_bearers',
+        title: 'Snow Storage (Top SWE)',
+        icon: '💧',
+        desc: 'Stations with the highest current Snow Water Equivalent (water weight).',
+        type: 'swe'
+    },
+    {
+        id: 'historical_consistency',
+        title: 'Historical Consistency (SD)',
+        icon: '📈',
+        desc: 'Standard deviation of peak snow depth per Water Year. Higher means more unpredictable seasons.',
+        type: 'snow',
+        showAllTime: true
+    }
+];
+
+document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('unit-toggle');
+    toggle.addEventListener('change', () => {
+        currentUnit = toggle.checked ? 'imperial' : 'metric';
+        renderDashboard();
+    });
+
+    fetchLeaderboard();
+});
+
+async function fetchLeaderboard() {
+    try {
+        const response = await fetch('leaderboard.json');
+        if (!response.ok) throw new Error('Data not available');
+        cachedData = await response.json();
+        renderMetadata();
+        renderDashboard();
+    } catch (error) {
+        console.error('Error fetching leaderboard:', error);
+        const loadingEl = document.getElementById('loading');
+        if (loadingEl) loadingEl.textContent = 'Error loading data. Make sure leaderboard.json exists.';
+    }
+}
+
+function renderMetadata() {
+    if (!cachedData || !cachedData.metadata) return;
+    const meta = cachedData.metadata;
+    const bar = document.getElementById('metadata-bar');
+    if (!bar) return;
+
+    const genDate = new Date(meta.generated_at).toLocaleString();
+    const maxDate = new Date(meta.max_date).toLocaleDateString();
+
+    bar.innerHTML = `
+        <div class="metadata-item">Generated: <span>${genDate}</span></div>
+        <div class="metadata-item">Latest Data: <span>${maxDate}</span></div>
+        <div class="metadata-item">Stations: <span>${meta.total_stations}</span></div>
+    `;
+}
+
+function convert(val, type, targetUnit) {
+    if (val === null || val === undefined) return null;
+    if (targetUnit === 'metric') return val;
+
+    if (type === 'snow' || type === 'swe') {
+        return val * 39.3701; // meters to inches
+    }
+    if (type === 'elevation') {
+        return val * 3.28084; // meters to feet
+    }
+    return val;
+}
+
+function getSuffix(type, unit) {
+    if (unit === 'metric') return ' m';
+    return type === 'elevation' ? ' ft' : ' in';
+}
+
+function renderDashboard() {
+    if (!cachedData) return;
+
+    const dashboard = document.getElementById('dashboard');
+    dashboard.innerHTML = '';
+
+    METRIC_CONFIGS.forEach(config => {
+        const item = cachedData[config.id];
+        if (item) {
+            const card = createLeaderboardCard(config, item);
+            dashboard.appendChild(card);
+        }
+    });
+}
+
+function createLeaderboardCard(config, categoryData) {
+    const card = document.createElement('div');
+    card.className = 'glass-card';
+
+    const header = document.createElement('div');
+    header.className = 'card-title';
+    header.innerHTML = `<span class="icon">${config.icon}</span> ${config.title}`;
+
+    const desc = document.createElement('p');
+    desc.className = 'station-meta';
+    desc.style.marginBottom = '1.2rem';
+    desc.textContent = config.desc;
+
+    const table = document.createElement('table');
+    table.className = 'leaderboard-table';
+
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+        <tr>
+            <th class="rank-cell">#</th>
+            <th>Station</th>
+            <th class="metric-col">${currentUnit === 'metric' ? 'Metric' : 'Imperial'}</th>
+        </tr>
+    `;
+
+    const tbody = document.createElement('tbody');
+
+    // Add TOP 10
+    categoryData.top.forEach((item, index) => {
+        tbody.appendChild(createRow(item, index + 1, config));
+    });
+
+    // Add Ellipsis / Separator
+    const sep = document.createElement('tr');
+    sep.innerHTML = `<td colspan="3" style="text-align: center; color: var(--text-muted); padding: 4px; font-size: 0.8rem;">•••</td>`;
+    tbody.appendChild(sep);
+
+    // Add BOTTOM 5
+    const totalCount = categoryData.total_count || 100;
+    categoryData.bottom.forEach((item, index) => {
+        const rank = totalCount - (categoryData.bottom.length - index - 1);
+        tbody.appendChild(createRow(item, rank, config));
+    });
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+
+    card.appendChild(header);
+    card.appendChild(desc);
+
+    if (categoryData.notes) {
+        const notes = document.createElement('div');
+        notes.className = 'cleaning-note';
+        notes.textContent = categoryData.notes;
+        card.appendChild(notes);
+    }
+
+    card.appendChild(table);
+
+    return card;
+}
+
+function createRow(item, rank, config) {
+    const tr = document.createElement('tr');
+
+    const convertedVal = convert(item.value, config.type, currentUnit);
+    const suffix = getSuffix(config.type, currentUnit);
+    const displayVal = convertedVal !== null ?
+        (convertedVal.toFixed(config.id.includes('consistency') ? 2 : 1) + suffix) : 'N/A';
+
+    const elev = convert(item.elevation_m, 'elevation', currentUnit);
+    const elevSuffix = getSuffix('elevation', currentUnit);
+    const elevDisplay = elev !== null ? `${elev.toFixed(0)}${elevSuffix}` : 'N/A';
+
+    let extraInfo = '';
+    if (config.showAllTime && item.all_time_max !== undefined) {
+        const max = convert(item.all_time_max, config.type, currentUnit);
+        const min = convert(item.all_time_min, config.type, currentUnit);
+        const maxYr = item.all_time_max_year;
+        const minYr = item.all_time_min_year;
+        extraInfo = `<div class="station-meta" style="color: var(--accent-purple); font-size: 0.75rem;">
+            Peak Snow Depth Range: ${min.toFixed(1)}${suffix} (${minYr}) - ${max.toFixed(1)}${suffix} (${maxYr})
+        </div>`;
+    }
+
+    tr.innerHTML = `
+        <td class="rank-cell" style="font-size: 0.8rem;">${rank}</td>
+        <td class="station-cell">
+            <div class="station-name" style="font-size: 0.95rem;">${item.name}</div>
+            <div class="station-meta" style="font-size: 0.75rem;">${item.station_id} • ${item.state} • ${elevDisplay}</div>
+            ${extraInfo}
+        </td>
+        <td class="value-cell" style="font-size: 1rem;">${displayVal}</td>
+    `;
+    return tr;
+}

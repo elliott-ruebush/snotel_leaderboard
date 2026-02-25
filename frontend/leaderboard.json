@@ -1,0 +1,741 @@
+{
+  "metadata": {
+    "generated_at": "2026-02-24T23:51:55.593173",
+    "min_date": "1909-04-13",
+    "max_date": "2026-02-24",
+    "total_stations": 930
+  },
+  "base_builders": {
+    "top": [
+      {
+        "station_id": "998_WA_SNTL",
+        "name": "Easy Pass",
+        "state": "Washington",
+        "elevation_m": 1606.2960205078125,
+        "value": 3.124
+      },
+      {
+        "station_id": "574_CA_SNTL",
+        "name": "Leavitt Lake",
+        "state": "California",
+        "elevation_m": 2927.29931640625,
+        "value": 2.921
+      },
+      {
+        "station_id": "606_WA_SNTL",
+        "name": "Lyman Lake",
+        "state": "Washington",
+        "elevation_m": 1822.7039794921875,
+        "value": 2.845
+      },
+      {
+        "station_id": "515_WA_SNTL",
+        "name": "Harts Pass",
+        "state": "Washington",
+        "elevation_m": 1978.1519775390625,
+        "value": 2.642
+      },
+      {
+        "station_id": "482_MT_SNTL",
+        "name": "Flattop Mtn.",
+        "state": "Montana",
+        "elevation_m": 1920.239990234375,
+        "value": 2.515
+      },
+      {
+        "station_id": "600_ID_SNTL",
+        "name": "Lost Lake",
+        "state": "Idaho",
+        "elevation_m": 1862.3280029296875,
+        "value": 2.438
+      },
+      {
+        "station_id": "646_MT_SNTL",
+        "name": "Moss Peak",
+        "state": "Montana",
+        "elevation_m": 2066.5439453125,
+        "value": 2.362
+      },
+      {
+        "station_id": "439_ID_SNTL",
+        "name": "Deadwood Summit",
+        "state": "Idaho",
+        "elevation_m": 2090.927978515625,
+        "value": 2.337
+      },
+      {
+        "station_id": "652_NV_SNTL",
+        "name": "Mt Rose Ski Area",
+        "state": "Nevada",
+        "elevation_m": 2682.544921875,
+        "value": 2.286
+      },
+      {
+        "station_id": "530_MT_SNTL",
+        "name": "Hoodoo Basin",
+        "state": "Montana",
+        "elevation_m": 1844.0400390625,
+        "value": 2.235
+      }
+    ],
+    "bottom": [
+      {
+        "station_id": "1118_UT_SNTL",
+        "name": "Lost Creek Resv",
+        "state": "Utah",
+        "elevation_m": 1853.7935791015625,
+        "value": 0.0
+      },
+      {
+        "station_id": "1044_OR_SNTL",
+        "name": "Toketee Airstrip",
+        "state": "Oregon",
+        "elevation_m": 987.552001953125,
+        "value": 0.0
+      },
+      {
+        "station_id": "470_OR_SNTL",
+        "name": "Emigrant Springs",
+        "state": "Oregon",
+        "elevation_m": 1158.239990234375,
+        "value": 0.0
+      },
+      {
+        "station_id": "1121_AZ_SNTL",
+        "name": "Fort Valley",
+        "state": "Arizona",
+        "elevation_m": 2240.280029296875,
+        "value": 0.0
+      },
+      {
+        "station_id": "818_WY_SNTL",
+        "name": "Tie Creek",
+        "state": "Wyoming",
+        "elevation_m": 2093.97607421875,
+        "value": 0.0
+      }
+    ],
+    "total_count": 811
+  },
+  "water_bearers": {
+    "top": [
+      {
+        "station_id": "998_WA_SNTL",
+        "name": "Easy Pass",
+        "state": "Washington",
+        "elevation_m": 1606.2960205078125,
+        "value": 1.839
+      },
+      {
+        "station_id": "515_WA_SNTL",
+        "name": "Harts Pass",
+        "state": "Washington",
+        "elevation_m": 1978.1519775390625,
+        "value": 1.268
+      },
+      {
+        "station_id": "606_WA_SNTL",
+        "name": "Lyman Lake",
+        "state": "Washington",
+        "elevation_m": 1822.7039794921875,
+        "value": 0.996
+      },
+      {
+        "station_id": "574_CA_SNTL",
+        "name": "Leavitt Lake",
+        "state": "California",
+        "elevation_m": 2927.29931640625,
+        "value": 0.958
+      },
+      {
+        "station_id": "482_MT_SNTL",
+        "name": "Flattop Mtn.",
+        "state": "Montana",
+        "elevation_m": 1920.239990234375,
+        "value": 0.869
+      },
+      {
+        "station_id": "530_MT_SNTL",
+        "name": "Hoodoo Basin",
+        "state": "Montana",
+        "elevation_m": 1844.0400390625,
+        "value": 0.785
+      },
+      {
+        "station_id": "646_MT_SNTL",
+        "name": "Moss Peak",
+        "state": "Montana",
+        "elevation_m": 2066.5439453125,
+        "value": 0.744
+      },
+      {
+        "station_id": "307_MT_SNTL",
+        "name": "Badger Pass",
+        "state": "Montana",
+        "elevation_m": 2103.1201171875,
+        "value": 0.739
+      },
+      {
+        "station_id": "480_MT_SNTL",
+        "name": "Fisher Creek",
+        "state": "Montana",
+        "elevation_m": 2773.679931640625,
+        "value": 0.737
+      },
+      {
+        "station_id": "323_ID_SNTL",
+        "name": "Bear Mountain",
+        "state": "Idaho",
+        "elevation_m": 1645.9200439453125,
+        "value": 0.732
+      }
+    ],
+    "bottom": [
+      {
+        "station_id": "595_NM_SNTL",
+        "name": "Lookout Mountain",
+        "state": "New Mexico",
+        "elevation_m": 2590.800048828125,
+        "value": 0.0
+      },
+      {
+        "station_id": "1084_OR_SNTL",
+        "name": "Miller Woods",
+        "state": "Oregon",
+        "elevation_m": 128.01600646972656,
+        "value": 0.0
+      },
+      {
+        "station_id": "928_WA_SNTL",
+        "name": "Huckleberry Creek",
+        "state": "Washington",
+        "elevation_m": 685.7999877929688,
+        "value": 0.0
+      },
+      {
+        "station_id": "470_OR_SNTL",
+        "name": "Emigrant Springs",
+        "state": "Oregon",
+        "elevation_m": 1158.239990234375,
+        "value": 0.0
+      },
+      {
+        "station_id": "818_WY_SNTL",
+        "name": "Tie Creek",
+        "state": "Wyoming",
+        "elevation_m": 2093.97607421875,
+        "value": 0.0
+      }
+    ],
+    "total_count": 811
+  },
+  "deepest_dumps_24h": {
+    "top": [
+      {
+        "station_id": "679_WA_SNTL",
+        "name": "Paradise",
+        "state": "Washington",
+        "elevation_m": 1563.6240234375,
+        "value": 0.406
+      },
+      {
+        "station_id": "702_WA_SNTL",
+        "name": "Potato Hill",
+        "state": "Washington",
+        "elevation_m": 1374.64794921875,
+        "value": 0.356
+      },
+      {
+        "station_id": "692_WA_SNTL",
+        "name": "Pigtail Peak",
+        "state": "Washington",
+        "elevation_m": 1767.8399658203125,
+        "value": 0.356
+      },
+      {
+        "station_id": "502_WA_SNTL",
+        "name": "Green Lake",
+        "state": "Washington",
+        "elevation_m": 1804.416015625,
+        "value": 0.33
+      },
+      {
+        "station_id": "1263_WA_SNTL",
+        "name": "Pinto Rock",
+        "state": "Washington",
+        "elevation_m": 1353.31201171875,
+        "value": 0.33
+      },
+      {
+        "station_id": "418_WA_SNTL",
+        "name": "Corral Pass",
+        "state": "Washington",
+        "elevation_m": 1767.8399658203125,
+        "value": 0.279
+      },
+      {
+        "station_id": "693_MT_SNTL",
+        "name": "Pike Creek",
+        "state": "Montana",
+        "elevation_m": 1807.4639892578125,
+        "value": 0.254
+      },
+      {
+        "station_id": "932_MT_SNTL",
+        "name": "Poorman Creek",
+        "state": "Montana",
+        "elevation_m": 1554.47998046875,
+        "value": 0.229
+      },
+      {
+        "station_id": "651_OR_SNTL",
+        "name": "Mt Hood Test Site",
+        "state": "Oregon",
+        "elevation_m": 1636.7760009765625,
+        "value": 0.229
+      },
+      {
+        "station_id": "594_ID_SNTL",
+        "name": "Lookout",
+        "state": "Idaho",
+        "elevation_m": 1581.9119873046875,
+        "value": 0.229
+      }
+    ],
+    "bottom": [
+      {
+        "station_id": "1060_CO_SNTL",
+        "name": "Sharkstooth",
+        "state": "Colorado",
+        "elevation_m": 3267.4560546875,
+        "value": -0.102
+      },
+      {
+        "station_id": "619_OR_SNTL",
+        "name": "Mckenzie",
+        "state": "Oregon",
+        "elevation_m": 1453.89599609375,
+        "value": -0.102
+      },
+      {
+        "station_id": "666_OR_SNTL",
+        "name": "North Fork",
+        "state": "Oregon",
+        "elevation_m": 932.68798828125,
+        "value": -0.127
+      },
+      {
+        "station_id": "848_CA_SNTL",
+        "name": "Ward Creek #3",
+        "state": "California",
+        "elevation_m": 2055.8759765625,
+        "value": -0.127
+      },
+      {
+        "station_id": "428_CA_SNTL",
+        "name": "Css Lab",
+        "state": "California",
+        "elevation_m": 2101.291259765625,
+        "value": -0.152
+      }
+    ],
+    "total_count": 811
+  },
+  "deepest_dumps_48h": {
+    "top": [
+      {
+        "station_id": "679_WA_SNTL",
+        "name": "Paradise",
+        "state": "Washington",
+        "elevation_m": 1563.6240234375,
+        "value": 0.533
+      },
+      {
+        "station_id": "702_WA_SNTL",
+        "name": "Potato Hill",
+        "state": "Washington",
+        "elevation_m": 1374.64794921875,
+        "value": 0.432
+      },
+      {
+        "station_id": "1263_WA_SNTL",
+        "name": "Pinto Rock",
+        "state": "Washington",
+        "elevation_m": 1353.31201171875,
+        "value": 0.432
+      },
+      {
+        "station_id": "648_WA_SNTL",
+        "name": "Mount Crag",
+        "state": "Washington",
+        "elevation_m": 1207.008056640625,
+        "value": 0.406
+      },
+      {
+        "station_id": "692_WA_SNTL",
+        "name": "Pigtail Peak",
+        "state": "Washington",
+        "elevation_m": 1767.8399658203125,
+        "value": 0.406
+      },
+      {
+        "station_id": "502_WA_SNTL",
+        "name": "Green Lake",
+        "state": "Washington",
+        "elevation_m": 1804.416015625,
+        "value": 0.381
+      },
+      {
+        "station_id": "998_WA_SNTL",
+        "name": "Easy Pass",
+        "state": "Washington",
+        "elevation_m": 1606.2960205078125,
+        "value": 0.381
+      },
+      {
+        "station_id": "1072_AK_SNTL",
+        "name": "Kantishna",
+        "state": "Alaska",
+        "elevation_m": 472.44000244140625,
+        "value": 0.33
+      },
+      {
+        "station_id": "599_WA_SNTL",
+        "name": "Lost Horse",
+        "state": "Washington",
+        "elevation_m": 1560.5760498046875,
+        "value": 0.33
+      },
+      {
+        "station_id": "642_WA_SNTL",
+        "name": "Morse Lake",
+        "state": "Washington",
+        "elevation_m": 1648.968017578125,
+        "value": 0.33
+      }
+    ],
+    "bottom": [
+      {
+        "station_id": "1049_CA_SNTL",
+        "name": "Forestdale Creek",
+        "state": "California",
+        "elevation_m": 2443.58154296875,
+        "value": -0.203
+      },
+      {
+        "station_id": "463_CA_SNTL",
+        "name": "Echo Peak",
+        "state": "California",
+        "elevation_m": 2332.634521484375,
+        "value": -0.203
+      },
+      {
+        "station_id": "809_CA_SNTL",
+        "name": "Tahoe City Cross",
+        "state": "California",
+        "elevation_m": 2071.7255859375,
+        "value": -0.229
+      },
+      {
+        "station_id": "848_CA_SNTL",
+        "name": "Ward Creek #3",
+        "state": "California",
+        "elevation_m": 2055.8759765625,
+        "value": -0.254
+      },
+      {
+        "station_id": "428_CA_SNTL",
+        "name": "Css Lab",
+        "state": "California",
+        "elevation_m": 2101.291259765625,
+        "value": -0.279
+      }
+    ],
+    "total_count": 811
+  },
+  "deepest_dumps_7d": {
+    "top": [
+      {
+        "station_id": "648_WA_SNTL",
+        "name": "Mount Crag",
+        "state": "Washington",
+        "elevation_m": 1207.008056640625,
+        "value": 0.889
+      },
+      {
+        "station_id": "1107_WA_SNTL",
+        "name": "Buckinghorse",
+        "state": "Washington",
+        "elevation_m": 1484.3759765625,
+        "value": 0.737
+      },
+      {
+        "station_id": "679_WA_SNTL",
+        "name": "Paradise",
+        "state": "Washington",
+        "elevation_m": 1563.6240234375,
+        "value": 0.711
+      },
+      {
+        "station_id": "1263_WA_SNTL",
+        "name": "Pinto Rock",
+        "state": "Washington",
+        "elevation_m": 1353.31201171875,
+        "value": 0.635
+      },
+      {
+        "station_id": "1012_WA_SNTL",
+        "name": "Swift Creek",
+        "state": "Washington",
+        "elevation_m": 1353.31201171875,
+        "value": 0.635
+      },
+      {
+        "station_id": "652_NV_SNTL",
+        "name": "Mt Rose Ski Area",
+        "state": "Nevada",
+        "elevation_m": 2682.544921875,
+        "value": 0.61
+      },
+      {
+        "station_id": "804_WA_SNTL",
+        "name": "Surprise Lakes",
+        "state": "Washington",
+        "elevation_m": 1307.592041015625,
+        "value": 0.61
+      },
+      {
+        "station_id": "974_WA_SNTL",
+        "name": "Waterhole",
+        "state": "Washington",
+        "elevation_m": 1527.0479736328125,
+        "value": 0.584
+      },
+      {
+        "station_id": "874_CO_SNTL",
+        "name": "Wolf Creek Summit",
+        "state": "Colorado",
+        "elevation_m": 3352.800048828125,
+        "value": 0.559
+      },
+      {
+        "station_id": "943_WA_SNTL",
+        "name": "Dungeness",
+        "state": "Washington",
+        "elevation_m": 1222.248046875,
+        "value": 0.533
+      }
+    ],
+    "bottom": [
+      {
+        "station_id": "760_MT_SNTL",
+        "name": "Skalkaho Summit",
+        "state": "Montana",
+        "elevation_m": 2209.800048828125,
+        "value": -0.076
+      },
+      {
+        "station_id": "357_OR_SNTL",
+        "name": "Blue Mountain Spring",
+        "state": "Oregon",
+        "elevation_m": 1789.176025390625,
+        "value": -0.076
+      },
+      {
+        "station_id": "445_NV_SNTL",
+        "name": "Disaster Peak",
+        "state": "Nevada",
+        "elevation_m": 1908.0479736328125,
+        "value": -0.076
+      },
+      {
+        "station_id": "946_AK_SNTL",
+        "name": "Indian Pass",
+        "state": "Alaska",
+        "elevation_m": 716.280029296875,
+        "value": -0.076
+      },
+      {
+        "station_id": "477_OR_SNTL",
+        "name": "Fish Creek",
+        "state": "Oregon",
+        "elevation_m": 2334.76806640625,
+        "value": -0.076
+      }
+    ],
+    "total_count": 810
+  },
+  "historical_consistency": {
+    "top": [
+      {
+        "station_id": "574_CA_SNTL",
+        "name": "Leavitt Lake",
+        "state": "California",
+        "elevation_m": 2927.29931640625,
+        "value": 1.3278,
+        "all_time_max": 7.112,
+        "all_time_max_year": 2017,
+        "all_time_min": 2.0828,
+        "all_time_min_year": 2015
+      },
+      {
+        "station_id": "1012_WA_SNTL",
+        "name": "Swift Creek",
+        "state": "Washington",
+        "elevation_m": 1353.31201171875,
+        "value": 1.2468,
+        "all_time_max": 5.969,
+        "all_time_max_year": 2023,
+        "all_time_min": 0.762,
+        "all_time_min_year": 2015
+      },
+      {
+        "station_id": "910_WA_SNTL",
+        "name": "Elbow Lake",
+        "state": "Washington",
+        "elevation_m": 926.5919799804688,
+        "value": 1.2306,
+        "all_time_max": 6.8326,
+        "all_time_max_year": 1997,
+        "all_time_min": 0.508,
+        "all_time_min_year": 2015
+      },
+      {
+        "station_id": "708_NM_SNTL",
+        "name": "Quemazon",
+        "state": "New Mexico",
+        "elevation_m": 2895.60009765625,
+        "value": 1.2238,
+        "all_time_max": 5.0292,
+        "all_time_max_year": 2025,
+        "all_time_min": 0.2032,
+        "all_time_min_year": 2006
+      },
+      {
+        "station_id": "1107_WA_SNTL",
+        "name": "Buckinghorse",
+        "state": "Washington",
+        "elevation_m": 1484.3759765625,
+        "value": 1.2003,
+        "all_time_max": 5.7658,
+        "all_time_max_year": 2011,
+        "all_time_min": 0.6096,
+        "all_time_min_year": 2015
+      },
+      {
+        "station_id": "651_OR_SNTL",
+        "name": "Mt Hood Test Site",
+        "state": "Oregon",
+        "elevation_m": 1636.7760009765625,
+        "value": 1.1725,
+        "all_time_max": 6.5786,
+        "all_time_max_year": 2025,
+        "all_time_min": 1.4224,
+        "all_time_min_year": 2015
+      },
+      {
+        "station_id": "428_CA_SNTL",
+        "name": "Css Lab",
+        "state": "California",
+        "elevation_m": 2101.291259765625,
+        "value": 1.1652,
+        "all_time_max": 5.6388,
+        "all_time_max_year": 2011,
+        "all_time_min": 0.7112,
+        "all_time_min_year": 2015
+      },
+      {
+        "station_id": "652_NV_SNTL",
+        "name": "Mt Rose Ski Area",
+        "state": "Nevada",
+        "elevation_m": 2682.544921875,
+        "value": 1.0849,
+        "all_time_max": 5.8928,
+        "all_time_max_year": 2017,
+        "all_time_min": 1.4732,
+        "all_time_min_year": 2014
+      },
+      {
+        "station_id": "909_WA_SNTL",
+        "name": "Wells Creek",
+        "state": "Washington",
+        "elevation_m": 1228.343994140625,
+        "value": 1.052,
+        "all_time_max": 6.7056,
+        "all_time_max_year": 1997,
+        "all_time_min": 0.6096,
+        "all_time_min_year": 2015
+      },
+      {
+        "station_id": "1166_OR_SNTL",
+        "name": "Bear Grass",
+        "state": "Oregon",
+        "elevation_m": 1438.656005859375,
+        "value": 1.0183,
+        "all_time_max": 4.6482,
+        "all_time_max_year": 2023,
+        "all_time_min": 0.7874,
+        "all_time_min_year": 2015
+      }
+    ],
+    "bottom": [
+      {
+        "station_id": "1275_AK_SNTL",
+        "name": "Jack Wade Jct",
+        "state": "Alaska",
+        "elevation_m": 1092.7080078125,
+        "value": 0.127,
+        "all_time_max": 0.9398,
+        "all_time_max_year": 2016,
+        "all_time_min": 0.6096,
+        "all_time_min_year": 2017
+      },
+      {
+        "station_id": "1084_OR_SNTL",
+        "name": "Miller Woods",
+        "state": "Oregon",
+        "elevation_m": 128.01600646972656,
+        "value": 0.126,
+        "all_time_max": 0.4826,
+        "all_time_max_year": 2009,
+        "all_time_min": 0.0,
+        "all_time_min_year": 2020
+      },
+      {
+        "station_id": "486_NM_SNTL",
+        "name": "Frisco Divide",
+        "state": "New Mexico",
+        "elevation_m": 2438.39990234375,
+        "value": 0.1223,
+        "all_time_max": 0.4826,
+        "all_time_max_year": 2023,
+        "all_time_min": 0.0508,
+        "all_time_min_year": 2018
+      },
+      {
+        "station_id": "595_NM_SNTL",
+        "name": "Lookout Mountain",
+        "state": "New Mexico",
+        "elevation_m": 2590.800048828125,
+        "value": 0.1087,
+        "all_time_max": 0.5588,
+        "all_time_max_year": 2012,
+        "all_time_min": 0.0762,
+        "all_time_min_year": 2018
+      },
+      {
+        "station_id": "1127_AZ_SNTL",
+        "name": "Nutrioso",
+        "state": "Arizona",
+        "elevation_m": 2590.800048828125,
+        "value": 0.0863,
+        "all_time_max": 0.3556,
+        "all_time_max_year": 2011,
+        "all_time_min": 0.0254,
+        "all_time_min_year": 2015
+      }
+    ],
+    "total_count": 838,
+    "notes": "Data cleaned: Snow depth > 15m (sensor error) filtered; negative readings zeroed. Consistency metrics require at least 5 years of 'full' data (>= 330 daily observations per water year)."
+  }
+}

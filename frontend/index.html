@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNOTEL Leaderboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Dynamic background effect -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+
+    <div class="container">
+        <header class="glass-header">
+            <div class="header-top">
+                <h1 class="logo">❄️ SNOTEL Leaders</h1>
+                <div class="unit-toggle-container">
+                    <span class="unit-label">Metric</span>
+                    <label class="switch">
+                        <input type="checkbox" id="unit-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="unit-label">Imperial</span>
+                </div>
+            </div>
+            <p class="subtitle">Highlighting the deepest dumps and biggest bases across the western US.</p>
+            <div id="metadata-bar" class="metadata-bar">
+                <!-- Data timestamps injected by JS -->
+            </div>
+        </header>
+
+        <main id="dashboard" class="dashboard-grid">
+            <!-- Leaderboard cards injected by JS -->
+            <div id="loading" class="loading">Loading live data...</div>
+        </main>
+
+        <footer class="glass-footer">
+            <p>Data powered by the NRCS SNOTEL Network & egagli's snotel_ccss_stations project.</p>
+        </footer>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
