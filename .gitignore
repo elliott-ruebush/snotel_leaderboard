@@ -11,3 +11,9 @@ nohup.out
 
 # Virtual environments
 .venv
+
+# Node.js
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/public/leaderboard.json
