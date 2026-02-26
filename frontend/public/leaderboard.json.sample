@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-25T19:14:42.020655",
+    "generated_at": "2026-02-25T19:33:07.347195",
     "min_date": "1909-04-13",
     "max_date": "2026-02-24",
     "total_stations": 930
@@ -71,26 +71,19 @@
         "value": 2.286
       },
       {
-        "station_id": "530_MT_SNTL",
-        "name": "Hoodoo Basin",
-        "state": "Montana",
-        "elevation_m": 1844.0400390625,
+        "station_id": "738_ID_SNTL",
+        "name": "Schweitzer Basin",
+        "state": "Idaho",
+        "elevation_m": 1856.2320556640625,
         "value": 2.235
       }
     ],
     "bottom": [
       {
-        "station_id": "708_NM_SNTL",
-        "name": "Quemazon",
-        "state": "New Mexico",
-        "elevation_m": 2895.60009765625,
-        "value": 0.0
-      },
-      {
-        "station_id": "928_WA_SNTL",
-        "name": "Huckleberry Creek",
-        "state": "Washington",
-        "elevation_m": 685.7999877929688,
+        "station_id": "470_OR_SNTL",
+        "name": "Emigrant Springs",
+        "state": "Oregon",
+        "elevation_m": 1158.239990234375,
         "value": 0.0
       },
       {
@@ -101,17 +94,24 @@
         "value": 0.0
       },
       {
-        "station_id": "819_WY_SNTL",
-        "name": "Timber Creek",
-        "state": "Wyoming",
-        "elevation_m": 2423.159912109375,
-        "value": 0.0
-      },
-      {
         "station_id": "1044_OR_SNTL",
         "name": "Toketee Airstrip",
         "state": "Oregon",
         "elevation_m": 987.552001953125,
+        "value": 0.0
+      },
+      {
+        "station_id": "945_OR_SNTL",
+        "name": "Gerber Reservoir",
+        "state": "Oregon",
+        "elevation_m": 1490.4720458984375,
+        "value": 0.0
+      },
+      {
+        "station_id": "422_OR_SNTL",
+        "name": "County Line",
+        "state": "Oregon",
+        "elevation_m": 1472.1839599609375,
         "value": 0.0
       }
     ],
@@ -199,24 +199,17 @@
         "value": 0.0
       },
       {
-        "station_id": "1084_OR_SNTL",
-        "name": "Miller Woods",
-        "state": "Oregon",
-        "elevation_m": 128.01600646972656,
+        "station_id": "818_WY_SNTL",
+        "name": "Tie Creek",
+        "state": "Wyoming",
+        "elevation_m": 2093.97607421875,
         "value": 0.0
       },
       {
-        "station_id": "595_NM_SNTL",
-        "name": "Lookout Mountain",
+        "station_id": "755_NM_SNTL",
+        "name": "Signal Peak",
         "state": "New Mexico",
-        "elevation_m": 2590.800048828125,
-        "value": 0.0
-      },
-      {
-        "station_id": "928_WA_SNTL",
-        "name": "Huckleberry Creek",
-        "state": "Washington",
-        "elevation_m": 685.7999877929688,
+        "elevation_m": 2548.1279296875,
         "value": 0.0
       },
       {
@@ -224,6 +217,13 @@
         "name": "Timber Creek",
         "state": "Wyoming",
         "elevation_m": 2423.159912109375,
+        "value": 0.0
+      },
+      {
+        "station_id": "470_OR_SNTL",
+        "name": "Emigrant Springs",
+        "state": "Oregon",
+        "elevation_m": 1158.239990234375,
         "value": 0.0
       }
     ],
@@ -281,6 +281,13 @@
         "value": 0.254
       },
       {
+        "station_id": "594_ID_SNTL",
+        "name": "Lookout",
+        "state": "Idaho",
+        "elevation_m": 1581.9119873046875,
+        "value": 0.229
+      },
+      {
         "station_id": "932_MT_SNTL",
         "name": "Poorman Creek",
         "state": "Montana",
@@ -288,21 +295,21 @@
         "value": 0.229
       },
       {
-        "station_id": "600_ID_SNTL",
-        "name": "Lost Lake",
-        "state": "Idaho",
-        "elevation_m": 1862.3280029296875,
-        "value": 0.229
-      },
-      {
-        "station_id": "594_ID_SNTL",
-        "name": "Lookout",
-        "state": "Idaho",
-        "elevation_m": 1581.9119873046875,
+        "station_id": "998_WA_SNTL",
+        "name": "Easy Pass",
+        "state": "Washington",
+        "elevation_m": 1606.2960205078125,
         "value": 0.229
       }
     ],
     "bottom": [
+      {
+        "station_id": "463_CA_SNTL",
+        "name": "Echo Peak",
+        "state": "California",
+        "elevation_m": 2332.634521484375,
+        "value": -0.102
+      },
       {
         "station_id": "1060_CO_SNTL",
         "name": "Sharkstooth",
@@ -311,24 +318,17 @@
         "value": -0.102
       },
       {
-        "station_id": "619_OR_SNTL",
-        "name": "Mckenzie",
-        "state": "Oregon",
-        "elevation_m": 1453.89599609375,
-        "value": -0.102
+        "station_id": "848_CA_SNTL",
+        "name": "Ward Creek #3",
+        "state": "California",
+        "elevation_m": 2055.8759765625,
+        "value": -0.127
       },
       {
         "station_id": "666_OR_SNTL",
         "name": "North Fork",
         "state": "Oregon",
         "elevation_m": 932.68798828125,
-        "value": -0.127
-      },
-      {
-        "station_id": "848_CA_SNTL",
-        "name": "Ward Creek #3",
-        "state": "California",
-        "elevation_m": 2055.8759765625,
         "value": -0.127
       },
       {
@@ -393,17 +393,17 @@
         "value": 0.381
       },
       {
-        "station_id": "599_WA_SNTL",
-        "name": "Lost Horse",
-        "state": "Washington",
-        "elevation_m": 1560.5760498046875,
-        "value": 0.33
-      },
-      {
         "station_id": "1072_AK_SNTL",
         "name": "Kantishna",
         "state": "Alaska",
         "elevation_m": 472.44000244140625,
+        "value": 0.33
+      },
+      {
+        "station_id": "599_WA_SNTL",
+        "name": "Lost Horse",
+        "state": "Washington",
+        "elevation_m": 1560.5760498046875,
         "value": 0.33
       },
       {

@@ -207,7 +207,7 @@ function createRow(item: StationEntry, rank: number, config: MetricConfig): HTML
         const minYr = item.all_time_min_year;
 
         if (max !== null && min !== null) {
-            extraInfo = `<div class="station-meta" style="color: var(--accent-purple); font-size: 0.75rem;">
+            extraInfo = `<div class="station-meta" style="color: var(--accent-blue-deep); font-size: 0.75rem;">
                 Peak Snow Depth Range: ${min.toFixed(1)}${suffix} (${minYr}) - ${max.toFixed(1)}${suffix} (${maxYr})
             </div>`;
         }

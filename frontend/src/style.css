@@ -5,7 +5,7 @@
   --text-muted: #9aa8b9;
   --accent-cyan: #00f0ff;
   --accent-blue: #2563eb;
-  --accent-purple: #9333ea;
+  --accent-blue-deep: #1d4ed8;
 
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.08);
@@ -49,7 +49,7 @@ body {
 .bg-glow-2 {
   width: 500px;
   height: 500px;
-  background: var(--accent-purple);
+  background: var(--accent-blue-deep);
   bottom: -100px;
   right: -100px;
   animation-duration: 30s;
@@ -282,7 +282,7 @@ input:checked+.slider:before {
   left: 0;
   width: 100%;
   height: 3px;
-  background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-blue-deep));
   opacity: 0.7;
 }
 
@@ -382,14 +382,14 @@ tr:nth-child(3) .rank-cell {
 
 .cleaning-note {
   font-size: 0.7rem;
-  color: #ff9e7d;
-  background: rgba(255, 158, 125, 0.05);
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.05);
   padding: 4px 8px;
   border-radius: 6px;
   display: block;
   margin-top: -0.8rem;
   margin-bottom: 1.2rem;
-  border-left: 2px solid rgba(255, 158, 125, 0.4);
+  border-left: 2px solid rgba(56, 189, 248, 0.4);
   line-height: 1.4;
 }
 
