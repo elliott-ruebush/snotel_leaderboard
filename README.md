@@ -32,7 +32,7 @@ cd frontend && npm run dev
 ### Local Validation
 To run a clean end-to-end update (fetch data + build site) exactly like the deployment environment:
 ```bash
-./validate.sh
+npm run build
 ```
 
 ### GitHub Pages Deployment
