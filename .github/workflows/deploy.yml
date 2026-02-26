@@ -1,0 +1,63 @@
+name: Update SNOTEL Leaderboard
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Every 6 hours
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout SNOTEL Leaderboard
+        uses: actions/checkout@v4
+        with:
+          path: snotel_leaderboard
+
+      - name: Checkout SNOTEL Lib
+        uses: actions/checkout@v4
+        with:
+          repository: elliott-ruebush/snotel_lib
+          path: snotel_lib
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install uv and fetch data
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          export PATH="$HOME/.cargo/bin:$PATH"
+          cd snotel_leaderboard/backend
+          uv run src/generate_leaderboard.py
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: snotel_leaderboard/frontend/package-lock.json
+
+      - name: Build Frontend
+        working-directory: snotel_leaderboard/frontend
+        run: |
+          npm install
+          npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './snotel_leaderboard/frontend/dist'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

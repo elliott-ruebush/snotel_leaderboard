@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-24T23:51:55.593173",
+    "generated_at": "2026-02-25T19:14:42.020655",
     "min_date": "1909-04-13",
     "max_date": "2026-02-24",
     "total_stations": 930
@@ -80,10 +80,31 @@
     ],
     "bottom": [
       {
-        "station_id": "1118_UT_SNTL",
-        "name": "Lost Creek Resv",
-        "state": "Utah",
-        "elevation_m": 1853.7935791015625,
+        "station_id": "708_NM_SNTL",
+        "name": "Quemazon",
+        "state": "New Mexico",
+        "elevation_m": 2895.60009765625,
+        "value": 0.0
+      },
+      {
+        "station_id": "928_WA_SNTL",
+        "name": "Huckleberry Creek",
+        "state": "Washington",
+        "elevation_m": 685.7999877929688,
+        "value": 0.0
+      },
+      {
+        "station_id": "1048_NM_SNTL",
+        "name": "Mcknight Cabin",
+        "state": "New Mexico",
+        "elevation_m": 2816.35205078125,
+        "value": 0.0
+      },
+      {
+        "station_id": "819_WY_SNTL",
+        "name": "Timber Creek",
+        "state": "Wyoming",
+        "elevation_m": 2423.159912109375,
         "value": 0.0
       },
       {
@@ -91,27 +112,6 @@
         "name": "Toketee Airstrip",
         "state": "Oregon",
         "elevation_m": 987.552001953125,
-        "value": 0.0
-      },
-      {
-        "station_id": "470_OR_SNTL",
-        "name": "Emigrant Springs",
-        "state": "Oregon",
-        "elevation_m": 1158.239990234375,
-        "value": 0.0
-      },
-      {
-        "station_id": "1121_AZ_SNTL",
-        "name": "Fort Valley",
-        "state": "Arizona",
-        "elevation_m": 2240.280029296875,
-        "value": 0.0
-      },
-      {
-        "station_id": "818_WY_SNTL",
-        "name": "Tie Creek",
-        "state": "Wyoming",
-        "elevation_m": 2093.97607421875,
         "value": 0.0
       }
     ],
@@ -192,10 +192,10 @@
     ],
     "bottom": [
       {
-        "station_id": "595_NM_SNTL",
-        "name": "Lookout Mountain",
-        "state": "New Mexico",
-        "elevation_m": 2590.800048828125,
+        "station_id": "902_AZ_SNTL",
+        "name": "Beaver Head",
+        "state": "Arizona",
+        "elevation_m": 2435.35205078125,
         "value": 0.0
       },
       {
@@ -206,6 +206,13 @@
         "value": 0.0
       },
       {
+        "station_id": "595_NM_SNTL",
+        "name": "Lookout Mountain",
+        "state": "New Mexico",
+        "elevation_m": 2590.800048828125,
+        "value": 0.0
+      },
+      {
         "station_id": "928_WA_SNTL",
         "name": "Huckleberry Creek",
         "state": "Washington",
@@ -213,17 +220,10 @@
         "value": 0.0
       },
       {
-        "station_id": "470_OR_SNTL",
-        "name": "Emigrant Springs",
-        "state": "Oregon",
-        "elevation_m": 1158.239990234375,
-        "value": 0.0
-      },
-      {
-        "station_id": "818_WY_SNTL",
-        "name": "Tie Creek",
+        "station_id": "819_WY_SNTL",
+        "name": "Timber Creek",
         "state": "Wyoming",
-        "elevation_m": 2093.97607421875,
+        "elevation_m": 2423.159912109375,
         "value": 0.0
       }
     ],
@@ -288,10 +288,10 @@
         "value": 0.229
       },
       {
-        "station_id": "651_OR_SNTL",
-        "name": "Mt Hood Test Site",
-        "state": "Oregon",
-        "elevation_m": 1636.7760009765625,
+        "station_id": "600_ID_SNTL",
+        "name": "Lost Lake",
+        "state": "Idaho",
+        "elevation_m": 1862.3280029296875,
         "value": 0.229
       },
       {
@@ -351,17 +351,17 @@
         "value": 0.533
       },
       {
-        "station_id": "702_WA_SNTL",
-        "name": "Potato Hill",
-        "state": "Washington",
-        "elevation_m": 1374.64794921875,
-        "value": 0.432
-      },
-      {
         "station_id": "1263_WA_SNTL",
         "name": "Pinto Rock",
         "state": "Washington",
         "elevation_m": 1353.31201171875,
+        "value": 0.432
+      },
+      {
+        "station_id": "702_WA_SNTL",
+        "name": "Potato Hill",
+        "state": "Washington",
+        "elevation_m": 1374.64794921875,
         "value": 0.432
       },
       {
@@ -393,17 +393,17 @@
         "value": 0.381
       },
       {
-        "station_id": "1072_AK_SNTL",
-        "name": "Kantishna",
-        "state": "Alaska",
-        "elevation_m": 472.44000244140625,
-        "value": 0.33
-      },
-      {
         "station_id": "599_WA_SNTL",
         "name": "Lost Horse",
         "state": "Washington",
         "elevation_m": 1560.5760498046875,
+        "value": 0.33
+      },
+      {
+        "station_id": "1072_AK_SNTL",
+        "name": "Kantishna",
+        "state": "Alaska",
+        "elevation_m": 472.44000244140625,
         "value": 0.33
       },
       {
@@ -519,10 +519,10 @@
         "value": 0.559
       },
       {
-        "station_id": "943_WA_SNTL",
-        "name": "Dungeness",
+        "station_id": "702_WA_SNTL",
+        "name": "Potato Hill",
         "state": "Washington",
-        "elevation_m": 1222.248046875,
+        "elevation_m": 1374.64794921875,
         "value": 0.533
       }
     ],
@@ -549,17 +549,17 @@
         "value": -0.076
       },
       {
-        "station_id": "946_AK_SNTL",
-        "name": "Indian Pass",
-        "state": "Alaska",
-        "elevation_m": 716.280029296875,
-        "value": -0.076
-      },
-      {
         "station_id": "477_OR_SNTL",
         "name": "Fish Creek",
         "state": "Oregon",
         "elevation_m": 2334.76806640625,
+        "value": -0.076
+      },
+      {
+        "station_id": "946_AK_SNTL",
+        "name": "Indian Pass",
+        "state": "Alaska",
+        "elevation_m": 716.280029296875,
         "value": -0.076
       }
     ],
@@ -609,7 +609,7 @@
         "all_time_max": 5.0292,
         "all_time_max_year": 2025,
         "all_time_min": 0.2032,
-        "all_time_min_year": 2006
+        "all_time_min_year": 2018
       },
       {
         "station_id": "1107_WA_SNTL",
@@ -699,7 +699,7 @@
         "all_time_max": 0.4826,
         "all_time_max_year": 2009,
         "all_time_min": 0.0,
-        "all_time_min_year": 2020
+        "all_time_min_year": 2013
       },
       {
         "station_id": "486_NM_SNTL",

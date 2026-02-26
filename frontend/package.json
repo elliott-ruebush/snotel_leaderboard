@@ -1,0 +1,16 @@
+{
+    "name": "snotel-leaderboard-frontend",
+    "private": true,
+    "version": "0.1.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "refresh-data": "cd ../backend && uv run src/generate_leaderboard.py"
+    },
+    "devDependencies": {
+        "typescript": "^5.7.3",
+        "vite": "^6.1.1"
+    }
+}

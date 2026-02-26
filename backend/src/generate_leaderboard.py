@@ -106,7 +106,7 @@ def generate_leaderboard():
         "Consistency metrics require at least 5 years of 'full' data (>= 330 daily observations per water year)."
     )
 
-    output_file = "../frontend/leaderboard.json"
+    output_file = "../frontend/public/leaderboard.json"
     with open(output_file, "w") as f:
         json.dump(leaderboard, f, indent=2)
 

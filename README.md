@@ -8,27 +8,24 @@ Fun little web vis of the current winners and losers in the race to SNOTEL fame!
 cd backend && uv run src/generate_leaderboard.py
 ```
 
-## Web Server
+## Web Server (Frontend)
 
-### Start Server
-Run from the root to start the server in the background:
-```bash
-cd frontend && nohup python3 -m http.server 8000 &
-```
-*Note: Logs are written to `frontend/nohup.out`.*
+This project uses **TypeScript** and **Vite**.
 
-### Stop Server
-To stop the server running on port 8000:
+### Development
+To start the development server with hot-reloading:
 ```bash
-lsof -ti :8000 | xargs kill
-```
-*Or manually find the PID and kill it:*
-```bash
-lsof -i :8000
-kill <PID>
+cd frontend && npm run dev
 ```
 
-### View Logs
+### Build & Validate
+To run an end-to-end update (fetch data + build site), use the helper script:
 ```bash
-tail -f frontend/nohup.out
+./validate.sh
 ```
+
+### GitHub Pages Deployment
+A GitHub Action is configured in `.github/workflows/deploy.yml` to automatically:
+1. Run the Python backend to fetch fresh SNOTEL data.
+2. Build the TypeScript frontend.
+3. Deploy the results to GitHub Pages every 6 hours.

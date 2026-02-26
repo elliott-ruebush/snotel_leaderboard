@@ -1,7 +1,9 @@
-let currentUnit = 'metric'; // 'metric' or 'imperial'
-let cachedData = null;
+import { StationEntry, CategoryData, LeaderboardData, MetricConfig } from './types';
 
-const METRIC_CONFIGS = [
+let currentUnit: 'metric' | 'imperial' = 'metric';
+let cachedData: LeaderboardData | null = null;
+
+const METRIC_CONFIGS: MetricConfig[] = [
     {
         id: 'deepest_dumps_24h',
         title: 'Deepest Dumps (24h)',
@@ -48,11 +50,13 @@ const METRIC_CONFIGS = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
-    const toggle = document.getElementById('unit-toggle');
-    toggle.addEventListener('change', () => {
-        currentUnit = toggle.checked ? 'imperial' : 'metric';
-        renderDashboard();
-    });
+    const toggle = document.getElementById('unit-toggle') as HTMLInputElement | null;
+    if (toggle) {
+        toggle.addEventListener('change', () => {
+            currentUnit = toggle.checked ? 'imperial' : 'metric';
+            renderDashboard();
+        });
+    }
 
     fetchLeaderboard();
 });
@@ -87,7 +91,7 @@ function renderMetadata() {
     `;
 }
 
-function convert(val, type, targetUnit) {
+function convert(val: number | null | undefined, type: 'snow' | 'swe' | 'elevation', targetUnit: 'metric' | 'imperial'): number | null {
     if (val === null || val === undefined) return null;
     if (targetUnit === 'metric') return val;
 
@@ -100,7 +104,7 @@ function convert(val, type, targetUnit) {
     return val;
 }
 
-function getSuffix(type, unit) {
+function getSuffix(type: 'snow' | 'swe' | 'elevation', unit: 'metric' | 'imperial'): string {
     if (unit === 'metric') return ' m';
     return type === 'elevation' ? ' ft' : ' in';
 }
@@ -109,10 +113,11 @@ function renderDashboard() {
     if (!cachedData) return;
 
     const dashboard = document.getElementById('dashboard');
+    if (!dashboard) return;
     dashboard.innerHTML = '';
 
     METRIC_CONFIGS.forEach(config => {
-        const item = cachedData[config.id];
+        const item = cachedData![config.id] as CategoryData | undefined;
         if (item) {
             const card = createLeaderboardCard(config, item);
             dashboard.appendChild(card);
@@ -120,7 +125,7 @@ function renderDashboard() {
     });
 }
 
-function createLeaderboardCard(config, categoryData) {
+function createLeaderboardCard(config: MetricConfig, categoryData: CategoryData): HTMLElement {
     const card = document.createElement('div');
     card.className = 'glass-card';
 
@@ -182,7 +187,7 @@ function createLeaderboardCard(config, categoryData) {
     return card;
 }
 
-function createRow(item, rank, config) {
+function createRow(item: StationEntry, rank: number, config: MetricConfig): HTMLElement {
     const tr = document.createElement('tr');
 
     const convertedVal = convert(item.value, config.type, currentUnit);
@@ -200,9 +205,12 @@ function createRow(item, rank, config) {
         const min = convert(item.all_time_min, config.type, currentUnit);
         const maxYr = item.all_time_max_year;
         const minYr = item.all_time_min_year;
-        extraInfo = `<div class="station-meta" style="color: var(--accent-purple); font-size: 0.75rem;">
-            Peak Snow Depth Range: ${min.toFixed(1)}${suffix} (${minYr}) - ${max.toFixed(1)}${suffix} (${maxYr})
-        </div>`;
+
+        if (max !== null && min !== null) {
+            extraInfo = `<div class="station-meta" style="color: var(--accent-purple); font-size: 0.75rem;">
+                Peak Snow Depth Range: ${min.toFixed(1)}${suffix} (${minYr}) - ${max.toFixed(1)}${suffix} (${maxYr})
+            </div>`;
+        }
     }
 
     tr.innerHTML = `
