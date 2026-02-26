@@ -1,8 +1,12 @@
-# SNOTEL Leaderboard (WIP)
+# SNOTEL Leaderboard
 
-Fun little web vis of the current winners and lows in the race to SNOTEL fame!
+Fun little web vis of the current highs and lows in the race to SNOTEL fame! 
 
-https://elliott-ruebush.github.io/snotel_leaderboard/
+Best viewed during the months with snow :)
+
+See it live at: https://elliott-ruebush.github.io/snotel_leaderboard/
+
+Updated every ~6 hours
 
 ## Quick Start (Root Commands)
 
