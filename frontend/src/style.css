@@ -6,6 +6,7 @@
   --accent-cyan: #00f0ff;
   --accent-blue: #2563eb;
   --accent-blue-deep: #1d4ed8;
+  --accent-orange: #ff9e7d;
 
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.08);
@@ -234,6 +235,18 @@ input:checked+.slider:before {
   font-weight: 600;
 }
 
+.metadata-item a {
+  color: var(--accent-cyan);
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(0, 240, 255, 0.3);
+  transition: all 0.2s ease;
+}
+
+.metadata-item a:hover {
+  color: white;
+  border-bottom-color: white;
+}
+
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -382,14 +395,14 @@ tr:nth-child(3) .rank-cell {
 
 .cleaning-note {
   font-size: 0.7rem;
-  color: #38bdf8;
-  background: rgba(56, 189, 248, 0.05);
+  color: var(--accent-orange);
+  background: rgba(255, 158, 125, 0.05);
   padding: 4px 8px;
   border-radius: 6px;
   display: block;
   margin-top: -0.8rem;
   margin-bottom: 1.2rem;
-  border-left: 2px solid rgba(56, 189, 248, 0.4);
+  border-left: 2px solid rgba(255, 158, 125, 0.4);
   line-height: 1.4;
 }
 

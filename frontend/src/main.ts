@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function fetchLeaderboard() {
     try {
-        const response = await fetch('leaderboard.json');
+        const response = await fetch(`leaderboard.json?t=${new Date().getTime()}`);
         if (!response.ok) throw new Error('Data not available');
         cachedData = await response.json();
         renderMetadata();
@@ -81,12 +81,22 @@ function renderMetadata() {
     const bar = document.getElementById('metadata-bar');
     if (!bar) return;
 
-    const genDate = new Date(meta.generated_at).toLocaleString();
-    const maxDate = new Date(meta.max_date).toLocaleDateString();
+    const d = new Date(meta.generated_at);
+    const dateStr = d.getFullYear() + '-' +
+        String(d.getMonth() + 1).padStart(2, '0') + '-' +
+        String(d.getDate()).padStart(2, '0');
+    const timeStr = String(d.getHours()).padStart(2, '0') + ':' +
+        String(d.getMinutes()).padStart(2, '0') + ':' +
+        String(d.getSeconds()).padStart(2, '0');
+    const tz = d.toLocaleTimeString('en-us', { timeZoneName: 'short' }).split(' ').pop();
+
+    const genDisplay = `${dateStr} ${timeStr} ${tz}`;
+    const maxDate = meta.max_date; // Already YYYY-MM-DD
 
     bar.innerHTML = `
-        <div class="metadata-item">Generated: <span>${genDate}</span></div>
+        <div class="metadata-item">Generated: <span>${genDisplay}</span></div>
         <div class="metadata-item">Latest Data: <span>${maxDate}</span></div>
+        <div class="metadata-item">Data: <a href="https://www.nrcs.usda.gov/state-offices/nevada/what-is-a-snotel-station" target="_blank">NRCS SNOTEL</a> • <a href="https://github.com/egagli/snotel_ccss_stations" target="_blank">Eric Gagliano SNOTEL/CCSS Data</a></div>
         <div class="metadata-item">Stations: <span>${meta.total_stations}</span></div>
     `;
 }
@@ -207,7 +217,7 @@ function createRow(item: StationEntry, rank: number, config: MetricConfig): HTML
         const minYr = item.all_time_min_year;
 
         if (max !== null && min !== null) {
-            extraInfo = `<div class="station-meta" style="color: var(--accent-blue-deep); font-size: 0.75rem;">
+            extraInfo = `<div class="station-meta" style="color: var(--accent-orange); font-size: 0.75rem;">
                 Peak Snow Depth Range: ${min.toFixed(1)}${suffix} (${minYr}) - ${max.toFixed(1)}${suffix} (${maxYr})
             </div>`;
         }
