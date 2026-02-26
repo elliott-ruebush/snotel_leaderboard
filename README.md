@@ -2,6 +2,8 @@
 
 Fun little web vis of the current winners and lows in the race to SNOTEL fame!
 
+https://elliott-ruebush.github.io/snotel_leaderboard/
+
 ## Quick Start (Root Commands)
 
 The project is structured with a Python backend and a TypeScript frontend. You can control everything from the root directory:
