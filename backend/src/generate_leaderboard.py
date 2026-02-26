@@ -1,5 +1,5 @@
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import polars as pl
 from snotel_lib import SnotelClient
 
@@ -57,7 +57,7 @@ def generate_leaderboard():
     print("Computing metrics...")
     min_date = df.select(pl.col("datetime").min()).to_series()[0].isoformat()
     max_date = df.select(pl.col("datetime").max()).to_series()[0].isoformat()
-    generated_at = datetime.now().isoformat()
+    generated_at = datetime.now(timezone.utc).isoformat()
     total_stations = metadata_df.select(pl.col("station_id").n_unique()).to_series()[0]
 
     recent_cutoff = df.select(pl.col("datetime").max()).to_series()[0] - timedelta(
