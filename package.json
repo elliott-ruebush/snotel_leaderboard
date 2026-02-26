@@ -1,6 +1,9 @@
 {
     "name": "snotel-leaderboard-root",
     "private": true,
+    "workspaces": [
+        "frontend"
+    ],
     "scripts": {
         "data": "cd backend && uv run src/generate_leaderboard.py",
         "dev": "npm run data && cd frontend && npm run dev",
