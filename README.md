@@ -8,6 +8,8 @@ See it live at: https://elliott-ruebush.github.io/snotel_leaderboard/
 
 Updated every ~6 hours
 
+Depends on: https://github.com/elliott-ruebush/snotel_lib
+
 ## Quick Start (Root Commands)
 
 The project is structured with a Python backend and a TypeScript frontend. You can control everything from the root directory:
