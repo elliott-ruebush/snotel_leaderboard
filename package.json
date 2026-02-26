@@ -1,0 +1,11 @@
+{
+    "name": "snotel-leaderboard-root",
+    "private": true,
+    "scripts": {
+        "data": "cd backend && uv run src/generate_leaderboard.py",
+        "dev": "npm run data && cd frontend && npm run dev",
+        "build": "npm run data && cd frontend && npm run build",
+        "preview": "npm run build && cd frontend && npm run preview",
+        "validate": "./validate.sh"
+    }
+}
