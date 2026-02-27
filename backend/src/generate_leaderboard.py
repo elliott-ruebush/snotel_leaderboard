@@ -3,7 +3,12 @@ from datetime import datetime, timedelta, timezone
 import polars as pl
 from snotel_lib import SnotelClient
 
-from metrics import compute_diff_metrics, compute_consistency_metrics, get_top_bot
+from metrics import (
+    compute_diff_metrics,
+    compute_consistency_metrics,
+    compute_live_z_score,
+    get_top_bot,
+)
 
 
 def get_station_metadata(client: SnotelClient) -> pl.DataFrame:
@@ -72,9 +77,11 @@ def generate_leaderboard():
 
     latest_diff_df = compute_diff_metrics(df, recent_cutoff)
     consistency_df = compute_consistency_metrics(df)
+    anomaly_df = compute_live_z_score(df)
 
     latest_diff_df = latest_diff_df.join(metadata_df, on="station_id", how="inner")
     consistency_df = consistency_df.join(metadata_df, on="station_id", how="inner")
+    anomaly_df = anomaly_df.join(metadata_df, on="station_id", how="inner")
 
     leaderboard = {
         "metadata": {
@@ -112,9 +119,21 @@ def generate_leaderboard():
         ],
     )
 
+    leaderboard["live_z_score"] = get_top_bot(
+        anomaly_df,
+        "live_z_score",
+        sort_by="abs_z_score",
+        round_digits=2,
+        extra_cols=["hist_mean_swe", "current_swe"],
+    )
+
     leaderboard["historical_consistency"]["notes"] = (
         "Data cleaned: Snow depth > 15m (sensor error) filtered; negative readings zeroed. "
         "Consistency metrics require at least 5 years of 'full' data (>= 330 daily observations per water year)."
+    )
+    leaderboard["live_z_score"]["notes"] = (
+        "Live Z-score is comparing current SWE to historical SWE for the exact same calendar day of the year. "
+        "(Most anomalous positive / negative vs most on trend near 0)."
     )
 
     output_file = "../frontend/public/leaderboard.json"

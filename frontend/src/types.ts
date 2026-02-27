@@ -8,6 +8,9 @@ export interface StationEntry {
     all_time_min?: number;
     all_time_max_year?: number;
     all_time_min_year?: number;
+    hist_mean_swe?: number;
+    current_swe?: number;
+    data_date?: string;
 }
 
 export interface CategoryData {
@@ -36,7 +39,7 @@ export interface MetricConfig {
     title: string;
     icon: string;
     desc: string;
-    type: 'snow' | 'swe' | 'elevation';
+    type: 'snow' | 'swe' | 'elevation' | 'zscore';
     showAllTime?: boolean;
     filters: CategoryFilter[];
 }

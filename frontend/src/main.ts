@@ -80,6 +80,14 @@ const METRIC_CONFIGS: MetricConfig[] = [
         type: 'snow',
         showAllTime: true,
         filters: ['all', 'historical']
+    },
+    {
+        id: 'live_z_score',
+        title: 'Live Anomaly (Z-Score)',
+        icon: '🎯',
+        desc: 'Z-score of current SWE compared to historical SWE for the same exact calendar day.',
+        type: 'zscore',
+        filters: ['all', 'historical', 'swe']
     }
 ];
 
@@ -165,7 +173,7 @@ function renderMetadata() {
     `;
 }
 
-function convert(val: number | null | undefined, type: 'snow' | 'swe' | 'elevation', targetUnit: 'metric' | 'imperial'): number | null {
+function convert(val: number | null | undefined, type: 'snow' | 'swe' | 'elevation' | 'zscore', targetUnit: 'metric' | 'imperial'): number | null {
     if (val === null || val === undefined) return null;
     if (targetUnit === 'metric') return val;
 
@@ -178,7 +186,8 @@ function convert(val: number | null | undefined, type: 'snow' | 'swe' | 'elevati
     return val;
 }
 
-function getSuffix(type: 'snow' | 'swe' | 'elevation', unit: 'metric' | 'imperial'): string {
+function getSuffix(type: 'snow' | 'swe' | 'elevation' | 'zscore', unit: 'metric' | 'imperial'): string {
+    if (type === 'zscore') return '';
     if (unit === 'metric') return ' m';
     return type === 'elevation' ? ' ft' : ' in';
 }
@@ -293,11 +302,22 @@ function createRow(item: StationEntry, rank: number, config: MetricConfig): HTML
         }
     }
 
+    if (item.current_swe !== undefined && item.hist_mean_swe !== undefined) {
+        const current = convert(item.current_swe, 'swe', currentUnit);
+        const average = convert(item.hist_mean_swe, 'swe', currentUnit);
+        const sweSuffix = getSuffix('swe', currentUnit);
+        if (current !== null && average !== null) {
+            extraInfo += `<div class="station-meta" style="color: var(--accent-cyan); font-size: 0.75rem;">
+                Current: ${current.toFixed(2)}${sweSuffix} vs Avg: ${average.toFixed(2)}${sweSuffix}
+            </div>`;
+        }
+    }
+
     tr.innerHTML = `
         <td class="rank-cell" style="font-size: 0.8rem;">${rank}</td>
         <td class="station-cell">
             <div class="station-name" style="font-size: 0.95rem;">${item.name}</div>
-            <div class="station-meta" style="font-size: 0.75rem;">${item.station_id} • ${item.state} • ${elevDisplay}</div>
+            <div class="station-meta" style="font-size: 0.75rem;">${item.station_id} • ${item.state} • ${elevDisplay}${item.data_date ? ' • ' + item.data_date : ''}</div>
             ${extraInfo}
         </td>
         <td class="value-cell" style="font-size: 1rem;">${displayVal}</td>

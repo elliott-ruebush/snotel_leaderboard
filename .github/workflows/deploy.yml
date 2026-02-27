@@ -37,11 +37,12 @@ jobs:
           cache: 'npm'
           cache-dependency-path: snotel_leaderboard/package-lock.json
 
-      - name: Install dependencies and Build
+      - name: Install dependencies, Test, and Build
         working-directory: snotel_leaderboard
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
           export PATH="$HOME/.cargo/bin:$PATH"
+          cd backend && uv sync --group dev && uv run python -m pytest && cd ..
           npm install
           npm run build
 
