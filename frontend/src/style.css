@@ -425,6 +425,18 @@ tr:nth-child(3) .rank-cell {
   margin-top: 0.2rem;
 }
 
+.station-id-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(154, 168, 185, 0.4);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.station-id-link:hover {
+  color: var(--accent-cyan);
+  border-bottom-color: rgba(0, 240, 255, 0.4);
+}
+
 .cleaning-note {
   font-size: 0.7rem;
   color: var(--accent-orange);

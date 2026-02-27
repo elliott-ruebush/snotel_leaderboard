@@ -192,6 +192,13 @@ function getSuffix(type: 'snow' | 'swe' | 'elevation' | 'zscore', unit: 'metric'
     return type === 'elevation' ? ' ft' : ' in';
 }
 
+/** Parses the numeric site number from a station ID like "912:WA:SNTL"
+ *  and returns the NWCC station info URL. */
+function stationUrl(stationId: string): string {
+    const siteNum = stationId.split('_')[0];
+    return `https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=${siteNum}`;
+}
+
 function renderDashboard() {
     if (!cachedData) return;
 
@@ -313,11 +320,12 @@ function createRow(item: StationEntry, rank: number, config: MetricConfig): HTML
         }
     }
 
+    const url = stationUrl(item.station_id);
     tr.innerHTML = `
         <td class="rank-cell" style="font-size: 0.8rem;">${rank}</td>
         <td class="station-cell">
             <div class="station-name" style="font-size: 0.95rem;">${item.name}</div>
-            <div class="station-meta" style="font-size: 0.75rem;">${item.station_id} • ${item.state} • ${elevDisplay}${item.data_date ? ' • ' + item.data_date : ''}</div>
+            <div class="station-meta" style="font-size: 0.75rem;"><a href="${url}" target="_blank" rel="noopener noreferrer" class="station-id-link">${item.station_id}</a> • ${item.state} • ${elevDisplay}${item.data_date ? ' • ' + item.data_date : ''}</div>
             ${extraInfo}
         </td>
         <td class="value-cell" style="font-size: 1rem;">${displayVal}</td>
