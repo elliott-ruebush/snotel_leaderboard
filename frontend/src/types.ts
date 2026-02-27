@@ -29,6 +29,8 @@ export interface LeaderboardData {
     [key: string]: CategoryData | LeaderboardMetadata;
 }
 
+export type CategoryFilter = 'all' | 'snow' | 'swe' | '24h' | '48h' | '7d' | 'historical';
+
 export interface MetricConfig {
     id: string;
     title: string;
@@ -36,4 +38,5 @@ export interface MetricConfig {
     desc: string;
     type: 'snow' | 'swe' | 'elevation';
     showAllTime?: boolean;
+    filters: CategoryFilter[];
 }

@@ -1,52 +1,96 @@
-import { StationEntry, CategoryData, LeaderboardData, MetricConfig } from './types';
+import { StationEntry, CategoryData, LeaderboardData, MetricConfig, CategoryFilter } from './types';
 
 let currentUnit: 'metric' | 'imperial' = 'metric';
 let cachedData: LeaderboardData | null = null;
+let currentFilter: CategoryFilter = 'all';
 
 const METRIC_CONFIGS: MetricConfig[] = [
+    // --- Snow Depth Group ---
     {
         id: 'deepest_dumps_24h',
         title: 'Deepest Dumps (24h)',
         icon: '❄️',
         desc: 'Highest magnitude snow depth changes in the past 24 hours.',
-        type: 'snow'
+        type: 'snow',
+        filters: ['all', 'snow', '24h']
     },
     {
         id: 'deepest_dumps_48h',
         title: 'Deepest Dumps (48h)',
         icon: '🌨️',
         desc: 'Highest magnitude snow depth change over the past 48 hours.',
-        type: 'snow'
+        type: 'snow',
+        filters: ['all', 'snow', '48h']
     },
     {
         id: 'deepest_dumps_7d',
         title: 'Deepest Dumps (7d)',
         icon: '☃️',
         desc: 'Highest magnitude snow depth change over the past 7 days.',
-        type: 'snow'
+        type: 'snow',
+        filters: ['all', 'snow', '7d']
     },
     {
         id: 'base_builders',
         title: 'Biggest Bases (Snow Depth)',
         icon: '🏔️',
         desc: 'Stations with the highest current snow depth.',
-        type: 'snow'
+        type: 'snow',
+        filters: ['all', 'snow']
+    },
+    // --- SWE Group ---
+    {
+        id: 'swe_trend_24h',
+        title: 'SWE Trend (24h)',
+        icon: '💧',
+        desc: 'Biggest change in Snow Water Equivalent over the past 24 hours.',
+        type: 'swe',
+        filters: ['all', 'swe', '24h']
+    },
+    {
+        id: 'swe_trend_48h',
+        title: 'SWE Trend (48h)',
+        icon: '🌊',
+        desc: 'Biggest change in Snow Water Equivalent over the past 48 hours.',
+        type: 'swe',
+        filters: ['all', 'swe', '48h']
+    },
+    {
+        id: 'swe_trend_7d',
+        title: 'SWE Trend (7d)',
+        icon: '⛲',
+        desc: 'Biggest change in Snow Water Equivalent over the past 7 days.',
+        type: 'swe',
+        filters: ['all', 'swe', '7d']
     },
     {
         id: 'water_bearers',
         title: 'Snow Storage (Top SWE)',
-        icon: '💧',
+        icon: '🐋',
         desc: 'Stations with the highest current Snow Water Equivalent (water weight).',
-        type: 'swe'
+        type: 'swe',
+        filters: ['all', 'swe']
     },
+    // --- Historical Group ---
     {
         id: 'historical_consistency',
         title: 'Historical Consistency (SD)',
         icon: '📈',
         desc: 'Standard deviation of peak snow depth per Water Year. Higher means more unpredictable seasons.',
         type: 'snow',
-        showAllTime: true
+        showAllTime: true,
+        filters: ['all', 'historical']
     }
+];
+
+const FILTER_OPTIONS: { id: CategoryFilter; label: string }[] = [
+    { id: 'all', label: 'All' },
+    { id: 'snow', label: 'Snow Depth' },
+    { id: 'swe', label: 'Water (SWE)' },
+    { id: '24h', label: '24h Change' },
+    { id: '48h', label: '48h Change' },
+    { id: '7d', label: '7 Day Change' },
+    { id: 'historical', label: 'Historical' }
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -58,8 +102,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    renderFilterTabs();
     fetchLeaderboard();
 });
+
+function renderFilterTabs() {
+    const container = document.getElementById('category-filters');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    FILTER_OPTIONS.forEach(option => {
+        const btn = document.createElement('button');
+        btn.className = `filter-btn ${currentFilter === option.id ? 'active' : ''}`;
+        btn.textContent = option.label;
+        btn.addEventListener('click', () => {
+            currentFilter = option.id;
+            renderFilterTabs(); // Update active class
+            renderDashboard(); // Re-render content
+        });
+        container.appendChild(btn);
+    });
+}
 
 async function fetchLeaderboard() {
     try {
@@ -127,6 +191,11 @@ function renderDashboard() {
     dashboard.innerHTML = '';
 
     METRIC_CONFIGS.forEach(config => {
+        // Apply filter logic here
+        if (!config.filters.includes(currentFilter)) {
+            return;
+        }
+
         const item = cachedData![config.id] as CategoryData | undefined;
         if (item) {
             const card = createLeaderboardCard(config, item);
@@ -202,8 +271,9 @@ function createRow(item: StationEntry, rank: number, config: MetricConfig): HTML
 
     const convertedVal = convert(item.value, config.type, currentUnit);
     const suffix = getSuffix(config.type, currentUnit);
+    const precision = (config.type === 'swe' || config.id.includes('consistency')) ? 2 : 1;
     const displayVal = convertedVal !== null ?
-        (convertedVal.toFixed(config.id.includes('consistency') ? 2 : 1) + suffix) : 'N/A';
+        (convertedVal.toFixed(precision) + suffix) : 'N/A';
 
     const elev = convert(item.elevation_m, 'elevation', currentUnit);
     const elevSuffix = getSuffix('elevation', currentUnit);

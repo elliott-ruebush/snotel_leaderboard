@@ -32,7 +32,13 @@ def prepare_station_data(client: SnotelClient) -> pl.DataFrame:
         .when(pl.col("snow_depth_m") > 15)
         .then(None)
         .otherwise(pl.col("snow_depth_m"))
-        .alias("snow_depth_m")
+        .alias("snow_depth_m"),
+        pl.when(pl.col("swe_m") < 0)
+        .then(0.0)
+        .when(pl.col("swe_m") > 5)
+        .then(None)
+        .otherwise(pl.col("swe_m"))
+        .alias("swe_m"),
     )
 
     df = df.with_columns(
@@ -84,10 +90,15 @@ def generate_leaderboard():
     leaderboard["deepest_dumps_24h"] = get_top_bot(
         latest_diff_df, "snow_depth_24h_diff"
     )
+    leaderboard["swe_trend_24h"] = get_top_bot(latest_diff_df, "swe_24h_diff")
+
     leaderboard["deepest_dumps_48h"] = get_top_bot(
         latest_diff_df, "snow_depth_48h_diff"
     )
+    leaderboard["swe_trend_48h"] = get_top_bot(latest_diff_df, "swe_48h_diff")
+
     leaderboard["deepest_dumps_7d"] = get_top_bot(latest_diff_df, "snow_depth_7d_diff")
+    leaderboard["swe_trend_7d"] = get_top_bot(latest_diff_df, "swe_7d_diff")
 
     leaderboard["historical_consistency"] = get_top_bot(
         consistency_df,
