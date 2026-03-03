@@ -1,16 +1,16 @@
 export interface StationEntry {
-    name: string;
     station_id: string;
+    name: string;
     state: string;
     elevation_m: number;
     value: number;
+    data_date?: string;
     all_time_max?: number;
     all_time_min?: number;
     all_time_max_year?: number;
     all_time_min_year?: number;
-    hist_mean_swe?: number;
     current_swe?: number;
-    data_date?: string;
+    hist_mean_swe?: number;
 }
 
 export interface CategoryData {
@@ -23,7 +23,6 @@ export interface CategoryData {
 export interface LeaderboardMetadata {
     generated_at: string;
     max_date: string;
-    min_date: string;
     total_stations: number;
 }
 
@@ -42,4 +41,28 @@ export interface MetricConfig {
     type: 'snow' | 'swe' | 'elevation' | 'zscore';
     showAllTime?: boolean;
     filters: CategoryFilter[];
+}
+
+export function convert(val: number | null | undefined, type: 'snow' | 'swe' | 'elevation' | 'zscore', targetUnit: 'metric' | 'imperial'): number | null {
+    if (val === null || val === undefined) return null;
+    if (targetUnit === 'metric') return val;
+
+    if (type === 'snow' || type === 'swe') {
+        return val * 39.3700787; // meters to inches
+    }
+    if (type === 'elevation') {
+        return val * 3.28084; // meters to feet
+    }
+    return val;
+}
+
+export function getSuffix(type: 'snow' | 'swe' | 'elevation' | 'zscore', unit: 'metric' | 'imperial'): string {
+    if (type === 'zscore') return '';
+    if (unit === 'metric') return ' m';
+    return type === 'elevation' ? ' ft' : ' in';
+}
+
+export function stationUrl(stationId: string): string {
+    const siteNum = stationId.split('_')[0];
+    return `https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=${siteNum}`;
 }

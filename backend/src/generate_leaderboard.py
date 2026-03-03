@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, timezone
 import polars as pl
 from snotel_lib import SnotelClient
 
-from metrics import (
+from .metrics import (
     compute_diff_metrics,
     compute_consistency_metrics,
     compute_live_z_score,
@@ -89,6 +89,12 @@ def generate_leaderboard():
             "min_date": min_date,
             "max_date": max_date,
             "total_stations": total_stations,
+            "units": {
+                "depth": "meter",
+                "swe": "meter",
+                "elevation": "meter",
+                "temperature": "degree_Celsius",
+            },
         }
     }
 
@@ -110,7 +116,6 @@ def generate_leaderboard():
     leaderboard["historical_consistency"] = get_top_bot(
         consistency_df,
         "std_dev",
-        round_digits=4,
         extra_cols=[
             "all_time_max",
             "all_time_max_year",

@@ -11,7 +11,14 @@ nohup.out
 
 # Virtual environments
 .venv
+.python-version
 
+# Coverage
+.coverage
+htmlcov/
+backend/.coverage
+backend/htmlcov/
+frontend/coverage/
 # Node.js
 node_modules/
 frontend/node_modules/

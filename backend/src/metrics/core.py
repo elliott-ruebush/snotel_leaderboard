@@ -4,7 +4,7 @@ import polars as pl
 def format_rows(
     df: pl.DataFrame,
     metric_col: str,
-    round_digits: int = 3,
+    round_digits: int = 4,
     extra_cols: list[str] | None = None,
 ) -> list[dict]:
     res = []

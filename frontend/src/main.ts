@@ -1,4 +1,4 @@
-import { StationEntry, CategoryData, LeaderboardData, MetricConfig, CategoryFilter } from './types';
+import { StationEntry, CategoryData, LeaderboardData, MetricConfig, CategoryFilter, convert, getSuffix, stationUrl } from './types';
 
 let currentUnit: 'metric' | 'imperial' = 'metric';
 let cachedData: LeaderboardData | null = null;
@@ -173,31 +173,7 @@ function renderMetadata() {
     `;
 }
 
-function convert(val: number | null | undefined, type: 'snow' | 'swe' | 'elevation' | 'zscore', targetUnit: 'metric' | 'imperial'): number | null {
-    if (val === null || val === undefined) return null;
-    if (targetUnit === 'metric') return val;
 
-    if (type === 'snow' || type === 'swe') {
-        return val * 39.3701; // meters to inches
-    }
-    if (type === 'elevation') {
-        return val * 3.28084; // meters to feet
-    }
-    return val;
-}
-
-function getSuffix(type: 'snow' | 'swe' | 'elevation' | 'zscore', unit: 'metric' | 'imperial'): string {
-    if (type === 'zscore') return '';
-    if (unit === 'metric') return ' m';
-    return type === 'elevation' ? ' ft' : ' in';
-}
-
-/** Parses the numeric site number from a station ID like "912:WA:SNTL"
- *  and returns the NWCC station info URL. */
-function stationUrl(stationId: string): string {
-    const siteNum = stationId.split('_')[0];
-    return `https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=${siteNum}`;
-}
 
 function renderDashboard() {
     if (!cachedData) return;
@@ -287,7 +263,7 @@ function createRow(item: StationEntry, rank: number, config: MetricConfig): HTML
 
     const convertedVal = convert(item.value, config.type, currentUnit);
     const suffix = getSuffix(config.type, currentUnit);
-    const precision = (config.type === 'swe' || config.id.includes('consistency')) ? 2 : 1;
+    const precision = (config.type === 'swe' || config.id.includes('consistency') || config.id.includes('dumps')) ? 2 : 1;
     const displayVal = convertedVal !== null ?
         (convertedVal.toFixed(precision) + suffix) : 'N/A';
 
