@@ -16,10 +16,13 @@ The project is structured with a Python backend and a TypeScript frontend. You c
 
 | Command | Action |
 | --- | --- |
-| `npm run data` | Fetch fresh SNOTEL data using the Python backend. |
-| `npm run dev` | Refresh data and start the Vite development server (auto-reloads). |
-| `npm run preview` | Full end-to-end update (Fetch data -> Build -> Serve). |
-| `npm run build` | Refresh data and build the production static site in `frontend/dist`. |
+| `npm run data` | Refresh SNOTEL data using the Python backend. |
+| `npm run dev` | Refresh data and start the local dev server. |
+| `npm run build` | Refresh data and build the production site. |
+| `npm run test` | Run all frontend (Vitest) and backend (pytest) tests. |
+| `npm run test:coverage` | Run all tests and generate coverage reports. |
+| `npm run validate` | Full check: run all tests and build the site. |
+| `npm run preview` | Build the site and serve the production preview. |
 
 ## Manual & Submodule Commands
 
@@ -27,7 +30,7 @@ If you need more granular control, you can still run commands within the subdire
 
 ### Backend
 ```bash
-cd backend && uv run src/generate_leaderboard.py
+cd backend && uv run python -m src.generate_leaderboard
 ```
 
 ### Frontend
