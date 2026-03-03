@@ -1,4 +1,5 @@
-import { StationEntry, CategoryData, LeaderboardData, MetricConfig, CategoryFilter, convert, getSuffix, stationUrl } from './types';
+import { StationEntry, CategoryData, LeaderboardData, MetricConfig, CategoryFilter } from './types';
+import { convert, getSuffix, stationUrl } from './utils';
 
 let currentUnit: 'metric' | 'imperial' = 'metric';
 let cachedData: LeaderboardData | null = null;
@@ -263,7 +264,17 @@ function createRow(item: StationEntry, rank: number, config: MetricConfig): HTML
 
     const convertedVal = convert(item.value, config.type, currentUnit);
     const suffix = getSuffix(config.type, currentUnit);
-    const precision = (config.type === 'swe' || config.id.includes('consistency') || config.id.includes('dumps')) ? 2 : 1;
+
+    // Dynamic precision based on metric type and ID
+    let precision = 1;
+    if (config.type === 'zscore') {
+        precision = 2;
+    } else if (config.type === 'elevation' || config.type === 'snow') {
+        precision = 0; // Show elevation and snow depth to nearest full unit (ft/in or m/cm)
+    } else if (config.type === 'swe') {
+        precision = 1; // SWE changes and base use 1 decimal (nearest mm or 0.1 inch)
+    }
+
     const displayVal = convertedVal !== null ?
         (convertedVal.toFixed(precision) + suffix) : 'N/A';
 
@@ -279,8 +290,9 @@ function createRow(item: StationEntry, rank: number, config: MetricConfig): HTML
         const minYr = item.all_time_min_year;
 
         if (max !== null && min !== null) {
+            // Use 0 precision for historical peak snow depth bases
             extraInfo = `<div class="station-meta" style="color: var(--accent-orange); font-size: 0.75rem;">
-                Peak Snow Depth Range: ${min.toFixed(1)}${suffix} (${minYr}) - ${max.toFixed(1)}${suffix} (${maxYr})
+                Peak Snow Depth Range: ${min.toFixed(0)}${suffix} (${minYr}) - ${max.toFixed(0)}${suffix} (${maxYr})
             </div>`;
         }
     }
@@ -291,7 +303,7 @@ function createRow(item: StationEntry, rank: number, config: MetricConfig): HTML
         const sweSuffix = getSuffix('swe', currentUnit);
         if (current !== null && average !== null) {
             extraInfo += `<div class="station-meta" style="color: var(--accent-cyan); font-size: 0.75rem;">
-                Current: ${current.toFixed(2)}${sweSuffix} vs Avg: ${average.toFixed(2)}${sweSuffix}
+                Current: ${current.toFixed(1)}${sweSuffix} vs Avg: ${average.toFixed(1)}${sweSuffix}
             </div>`;
         }
     }

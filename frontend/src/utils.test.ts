@@ -1,13 +1,18 @@
 import { describe, it, expect } from 'vitest'
-import { convert, getSuffix, stationUrl } from './types'
+import { convert, getSuffix, stationUrl } from './utils'
 
 describe('SNOTEL Utils', () => {
     describe('convert', () => {
-        it('should return metric values as-is', () => {
-            expect(convert(10, 'snow', 'metric')).toBe(10)
+        it('should return cm for snow/swe in metric mode', () => {
+            expect(convert(1, 'snow', 'metric')).toBe(100)
+            expect(convert(1, 'swe', 'metric')).toBe(100)
         })
 
-        it('should convert meters to inches for snow', () => {
+        it('should return meters for elevation in metric mode', () => {
+            expect(convert(1000, 'elevation', 'metric')).toBe(1000)
+        })
+
+        it('should convert meters to inches for snow/swe', () => {
             const val = convert(1, 'snow', 'imperial')
             expect(val).toBeCloseTo(39.37, 2)
         })
@@ -24,8 +29,13 @@ describe('SNOTEL Utils', () => {
     })
 
     describe('getSuffix', () => {
-        it('should return m for metric', () => {
-            expect(getSuffix('snow', 'metric')).toBe(' m')
+        it('should return cm for metric snow/swe', () => {
+            expect(getSuffix('snow', 'metric')).toBe(' cm')
+            expect(getSuffix('swe', 'metric')).toBe(' cm')
+        })
+
+        it('should return m for metric elevation', () => {
+            expect(getSuffix('elevation', 'metric')).toBe(' m')
         })
 
         it('should return in for imperial snow', () => {
