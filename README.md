@@ -10,6 +10,8 @@ Updated every ~6 hours
 
 Depends on: https://github.com/elliott-ruebush/snotel_lib
 
+See [IDEAS.md](IDEAS.md) for brainstorming on future improvements
+
 ## Quick Start (Root Commands)
 
 The project is structured with a Python backend and a TypeScript frontend. You can control everything from the root directory:
