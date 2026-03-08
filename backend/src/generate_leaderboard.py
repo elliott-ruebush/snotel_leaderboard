@@ -2,6 +2,8 @@ import json
 from datetime import datetime, timedelta, timezone
 import polars as pl
 from snotel_lib import SnotelClient
+from snotel_lib.clean import DEFAULT_CHECKS, QCLogSchema, run_qc
+from snotel_lib.schemas import AllSnotelDataSchema, SnotelDataSchema, StationMetadataSchema
 
 from .metrics import (
     compute_diff_metrics,
@@ -15,35 +17,47 @@ def get_station_metadata(client: SnotelClient) -> pl.DataFrame:
     metadata_gdf = client.get_stations_metadata()
     metadata_df = pl.from_pandas(metadata_gdf.drop(columns="geometry").reset_index())
 
-    return metadata_df.filter(pl.col("network") == "SNOTEL").select(
+    return metadata_df.filter(pl.col(StationMetadataSchema.network) == "SNOTEL").select(
         [
-            pl.col("code").alias("station_id"),
-            pl.col("name").alias("station_name"),
-            pl.col("state"),
-            pl.col("elevation_m"),
+            pl.col(StationMetadataSchema.code).alias(AllSnotelDataSchema.station_id),
+            pl.col(StationMetadataSchema.name).alias("station_name"),
+            pl.col(StationMetadataSchema.state),
+            pl.col(StationMetadataSchema.elevation_m),
         ]
     )
 
 
 def prepare_station_data(client: SnotelClient) -> pl.DataFrame:
     df = client.get_all_station_data()
-    df = df.drop_nulls(subset=["datetime", "station_id"]).sort(
-        ["station_id", "datetime"]
+    df = df.drop_nulls(
+        subset=[SnotelDataSchema.datetime, AllSnotelDataSchema.station_id]
+    ).sort([AllSnotelDataSchema.station_id, SnotelDataSchema.datetime])
+
+    # Run QC checks
+    # Provide a generic station argument since we're processing all at once
+    # We will compute flags per row. Usually run_qc generates a side log per station,
+    # but here we can just use it to filter the dataframe cleanly based on DEFAULT_CHECKS.
+    qc_result = run_qc(df, "ALL_STATIONS", DEFAULT_CHECKS)
+    df = qc_result.data
+    qc_logs = qc_result.qc
+
+    # For the leaderboard, we are only tagging a station's *latest* observation as flagged
+    # if it triggered a flag.
+    flagged_station_dates = (
+        qc_logs.group_by([QCLogSchema.station_id, QCLogSchema.datetime])
+        .agg(pl.col(QCLogSchema.explanation).unique().alias("qc_flags"))
+        .with_columns(pl.lit(True).alias("is_flagged"))
     )
 
-    df = df.with_columns(
-        pl.when(pl.col("snow_depth_m") < 0)
-        .then(0.0)
-        .when(pl.col("snow_depth_m") > 15)
-        .then(None)
-        .otherwise(pl.col("snow_depth_m"))
-        .alias("snow_depth_m"),
-        pl.when(pl.col("swe_m") < 0)
-        .then(0.0)
-        .when(pl.col("swe_m") > 5)
-        .then(None)
-        .otherwise(pl.col("swe_m"))
-        .alias("swe_m"),
+    df = df.join(
+        flagged_station_dates,
+        on=[AllSnotelDataSchema.station_id, SnotelDataSchema.datetime],
+        how="left",
+    ).with_columns(
+        [
+            pl.col("is_flagged").fill_null(False),
+            pl.col("qc_flags").fill_null([]),
+        ]
     )
 
     df = df.with_columns(
@@ -66,12 +80,14 @@ def generate_leaderboard():
     df = prepare_station_data(client)
 
     print("Computing metrics...")
-    min_date = df.select(pl.col("datetime").min()).to_series()[0].isoformat()
-    max_date = df.select(pl.col("datetime").max()).to_series()[0].isoformat()
+    min_date = df.select(pl.col(SnotelDataSchema.datetime).min()).to_series()[0].isoformat()
+    max_date = df.select(pl.col(SnotelDataSchema.datetime).max()).to_series()[0].isoformat()
     generated_at = datetime.now(timezone.utc).isoformat()
-    total_stations = metadata_df.select(pl.col("station_id").n_unique()).to_series()[0]
+    total_stations = (
+        metadata_df.select(pl.col(AllSnotelDataSchema.station_id).n_unique()).to_series()[0]
+    )
 
-    recent_cutoff = df.select(pl.col("datetime").max()).to_series()[0] - timedelta(
+    recent_cutoff = df.select(pl.col(SnotelDataSchema.datetime).max()).to_series()[0] - timedelta(
         days=7
     )
 
@@ -79,9 +95,15 @@ def generate_leaderboard():
     consistency_df = compute_consistency_metrics(df)
     anomaly_df = compute_live_z_score(df)
 
-    latest_diff_df = latest_diff_df.join(metadata_df, on="station_id", how="inner")
-    consistency_df = consistency_df.join(metadata_df, on="station_id", how="inner")
-    anomaly_df = anomaly_df.join(metadata_df, on="station_id", how="inner")
+    latest_diff_df = latest_diff_df.join(
+        metadata_df, on=AllSnotelDataSchema.station_id, how="inner"
+    )
+    consistency_df = consistency_df.join(
+        metadata_df, on=AllSnotelDataSchema.station_id, how="inner"
+    )
+    anomaly_df = anomaly_df.join(
+        metadata_df, on=AllSnotelDataSchema.station_id, how="inner"
+    )
 
     leaderboard = {
         "metadata": {

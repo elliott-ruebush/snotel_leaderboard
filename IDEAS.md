@@ -24,6 +24,17 @@ The quality control aspect is an important point here that may be the main sourc
 
 snotel_metrics should provide a robust set of tooling for derived calculations that operate on this standard data format and let us easily view trends in the data. Some of this functionality could perhaps be integrated into an upstream library or a MetPy/xclim?
 
+High-level module structure (should generously split logic within submodules to maintain readability and clarity)
+src/snotel_lib
+- data (used for the external input interfacing, houses schema definition for common formatting as well)
+- clean (used for logic around data cleaning and quality control)
+- calculation (used for computing actual derived metrics)
+There should be a core function using data and clean to get nice datasets that a user can then use calculation on or do their own thing
+
+tests
+- data
+- clean
+- calculation
 
 # Potential future improvements
 
@@ -56,6 +67,7 @@ Update the architecture to have a properly running frontend and backend so that 
 We can run a batch job to gen and backfill daily historical snapshots. Would neeed a database to store them at (although perhaps could explore using a github repo as a flat data store of daily data since there are only ~hundreds of stations). Compressed Parquet most efficient or is there a stronger format? Could do some profiling here.
 * Look at Geoparquet IO - https://geoparquet.io/ + geoparquet more broadly. https://parquet.apache.org/blog/2026/02/13/native-geospatial-types-in-apache-parquet/
 * Think about schemas and organization and providing self-documenting context to make it easy to use for human + LLM
+* If we get nice, clean data, can we host this online somewhere/somehow? Earthmover marketplace? CUAHSI?
 
 ## Quality Control
 ### Flag or filter outliers or improbable data values (snotel_lib)

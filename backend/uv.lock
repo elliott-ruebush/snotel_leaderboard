@@ -713,6 +713,7 @@ name = "snotel-leaderboard"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "pandera" },
     { name = "polars" },
     { name = "snotel-lib" },
 ]
@@ -727,6 +728,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "pandera", specifier = ">=0.29.0" },
     { name = "polars", specifier = ">=1.38.1" },
     { name = "snotel-lib", editable = "../../snotel_lib" },
 ]

@@ -309,14 +309,25 @@ function createRow(item: StationEntry, rank: number, config: MetricConfig): HTML
     }
 
     const url = stationUrl(item.station_id);
+    const reasons = item.qc_flags && item.qc_flags.length > 0 
+        ? item.qc_flags.join(', ') 
+        : 'Anomalies detected.';
+    
+    const qcNote = item.is_flagged 
+        ? `<div class="qc-flag-note">⚠️ ${reasons}</div>`
+        : '';
+
     tr.innerHTML = `
         <td class="rank-cell" style="font-size: 0.8rem;">${rank}</td>
         <td class="station-cell">
             <div class="station-name" style="font-size: 0.95rem;">${item.name}</div>
             <div class="station-meta" style="font-size: 0.75rem;"><a href="${url}" target="_blank" rel="noopener noreferrer" class="station-id-link">${item.station_id}</a> • ${item.state} • ${elevDisplay}${item.data_date ? ' • ' + item.data_date : ''}</div>
             ${extraInfo}
+            ${qcNote}
         </td>
-        <td class="value-cell" style="font-size: 1rem;">${displayVal}</td>
+        <td class="value-cell" style="font-size: 1rem;">
+            ${displayVal}
+        </td>
     `;
     return tr;
 }

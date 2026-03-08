@@ -11,6 +11,8 @@ export interface StationEntry {
     all_time_min_year?: number;
     current_swe?: number;
     hist_mean_swe?: number;
+    is_flagged?: boolean;
+    qc_flags?: string[];
 }
 
 export interface CategoryData {

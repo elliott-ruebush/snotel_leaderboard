@@ -1,4 +1,5 @@
 import polars as pl
+from snotel_lib.schemas import AllSnotelDataSchema, SnotelDataSchema, StationMetadataSchema
 
 
 def format_rows(
@@ -10,17 +11,21 @@ def format_rows(
     res = []
     for r in df.to_dicts():
         row = {
-            "station_id": r.get("station_id"),
+            "station_id": r.get(AllSnotelDataSchema.station_id),
             "name": r.get("station_name", "Unknown"),
-            "state": r.get("state", "Unknown"),
-            "elevation_m": r.get("elevation_m"),
+            "state": r.get(StationMetadataSchema.state, "Unknown"),
+            "elevation_m": r.get(StationMetadataSchema.elevation_m),
             "value": round(r.get(metric_col, 0), round_digits)
             if r.get(metric_col) is not None
             else None,
         }
-        dt = r.get("datetime")
+        dt = r.get(SnotelDataSchema.datetime)
         if dt is not None:
             row["data_date"] = str(dt)
+            
+        if r.get("is_flagged"):
+            row["is_flagged"] = True
+            row["qc_flags"] = r.get("qc_flags")
         if extra_cols:
             for ecol in extra_cols:
                 if ecol.endswith("_year"):
