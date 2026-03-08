@@ -14,6 +14,7 @@ def sample_station_df():
             "elevation_m": [1000, 2000],
             "snow_depth_m": [1.2345, 2.3456],
             "swe_m": [0.1, 0.2],
+            "precip_m": [0.1, 0.2],
             "datetime": [date(2023, 1, 1), date(2023, 1, 1)],
             "water_year": [2023, 2023],
         }

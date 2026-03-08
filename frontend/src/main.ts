@@ -44,7 +44,7 @@ const METRIC_CONFIGS: MetricConfig[] = [
         id: 'swe_trend_24h',
         title: 'SWE Trend (24h)',
         icon: '💧',
-        desc: 'Biggest change in Snow Water Equivalent over the past 24 hours.',
+        desc: 'Highest magnitude Snow Water Equivalent change over the past 24 hours.',
         type: 'swe',
         filters: ['all', 'swe', '24h']
     },
@@ -52,7 +52,7 @@ const METRIC_CONFIGS: MetricConfig[] = [
         id: 'swe_trend_48h',
         title: 'SWE Trend (48h)',
         icon: '🌊',
-        desc: 'Biggest change in Snow Water Equivalent over the past 48 hours.',
+        desc: 'Highest magnitude Snow Water Equivalent change over the past 48 hours.',
         type: 'swe',
         filters: ['all', 'swe', '48h']
     },
@@ -60,7 +60,7 @@ const METRIC_CONFIGS: MetricConfig[] = [
         id: 'swe_trend_7d',
         title: 'SWE Trend (7d)',
         icon: '⛲',
-        desc: 'Biggest change in Snow Water Equivalent over the past 7 days.',
+        desc: 'Highest magnitude Snow Water Equivalent change over the past 7 days.',
         type: 'swe',
         filters: ['all', 'swe', '7d']
     },
@@ -170,6 +170,7 @@ function renderMetadata() {
         <div class="metadata-item">Generated: <span>${genDisplay}</span></div>
         <div class="metadata-item">Latest Data: <span>${maxDate}</span></div>
         <div class="metadata-item">Data: <a href="https://www.nrcs.usda.gov/state-offices/nevada/what-is-a-snotel-station" target="_blank">NRCS SNOTEL</a> • <a href="https://github.com/egagli/snotel_ccss_stations" target="_blank">Eric Gagliano SNOTEL/CCSS Data</a></div>
+        <div class="metadata-item">Methodology: <a href="#data-description">Data Info and Validation</a></div>
         <div class="metadata-item">Stations: <span>${meta.total_stations}</span></div>
     `;
 }

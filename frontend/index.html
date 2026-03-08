@@ -33,7 +33,7 @@
                     <span class="unit-label">Imperial</span>
                 </div>
             </div>
-            <p class="subtitle">Highlighting the deepest dumps and biggest bases across the western US.</p>
+            <p class="subtitle">Highlighting the leaders and laggers in snowpack across the Western US!</p>
             <div id="metadata-bar" class="metadata-bar">
                 <!-- Data timestamps injected by JS -->
             </div>
@@ -48,9 +48,38 @@
             <div id="loading" class="loading">Loading live data...</div>
         </main>
 
-        <footer class="glass-footer">
-            <p>Highlighting the western US snow pack.</p>
-        </footer>
+        <section id="data-description" class="glass-card methodology-section">
+            <h2 class="card-title"><span class="icon">🔍</span> Methodology & Data Quality</h2>
+            
+            <div class="methodology-grid">
+                <div class="methodology-col">
+                    <h3>Variables</h3>
+                    <ul class="methodology-list">
+                        <li><strong>Snow Depth (SD):</strong> The actual height of the snowpack from the ground up, measured by an ultrasonic sensor.</li>
+                        <li><strong>Snow Water Equivalent (SWE):</strong> The weight of the snowpack expressed as a depth of water. This represents how much water is stored in the snow. This is a critical variable for water resources monitoring.</li>
+                        <li><strong>Precipitation (PR):</strong> Cumulative water-year precipitation, used to cross-reference SWE changes.</li>
+                        <li><a href="https://opensnow.com/news/post/snotel-explained" target="_blank" class="station-id-link">SNOTEL Overview from OpenSnow</a></li>
+                        <li><a href="https://www.drought.gov/data-maps-tools/snow-telemetry-snotel-snow-depth-and-snow-water-equivalent-products" target="_blank" class="station-id-link">SNOTEL Overview from NIDIS</a></li>
+                    </ul>
+                </div>
+                
+                <div class="methodology-col">
+                    <h3>Quality Control (QC)</h3>
+                    <p class="methodology-text">Data is passed through several automated checks.:</p>
+                    <ul class="methodology-list">
+                        <li><strong>Range Filters:</strong> Removes physically impossible or unlikely values like negative depths or 10 meter SWEs.</li>
+                        <li><strong>Cross-variable Checks:</strong> Cross-references values like Snow Depth and SWE or precipitation accumulation and SWE to flag unexpected relationships.</li>
+                        <li><strong>Day-over-day Spikes:</strong> Flags sudden and improbable single-day shifts in snowpack for further review.</li>
+                        <li>The system supports filters (completely remove data points) and flags (display a warning but do not filter). The system is designed for extensibility and only requires a Polars expression + a few pieces of metadata to define a new check.</li>
+                        <li><a href="https://github.com/elliott-ruebush/snotel_lib/blob/main/src/snotel_lib/validation/checks.py" target="_blank" class="station-id-link">QC pipeline source code</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p class="methodology-footer">
+                Data is sourced from the NRCS SNOTEL network. While we apply these filters to highlight the most reliable data, automated sensors in extreme environments can occasionally report errors.
+            </p>
+        </section>
     </div>
     <script type="module" src="/src/main.ts"></script>
 </body>

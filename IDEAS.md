@@ -1,5 +1,5 @@
 # Prios
-1. Move quality control into a central place in snotel_lib. Make it so that derived metrics can confidently perform just their core operations and know that data has either been filtered or flagged as inaccurate. Optional param to include or exclude flagged values?
+1. (WIP) Move quality control into a central place in snotel_lib. Make it so that derived metrics can confidently perform just their core operations and know that data has either been filtered or flagged as inaccurate. Optional param to include or exclude flagged values?
   * For simple derived metrics like day-over-day snow depth change - we can just flag that the result itself seems like an outlier
   * For more complex historical metrics (like consistency of snow depth), we could perhaps paramtrize the number of years of historical data you require. Can we connect this to having robust metadata so that the metric calculation can defer to the metadata layer?
 2. Explore additional historical metrics and analysis
@@ -22,7 +22,7 @@ snotel_lib (or perhaps a new name) should provide this standardization layer. Ho
 
 The quality control aspect is an important point here that may be the main source of logic in snotel_lib. As far as I'm aware, many data aggregation libraries are not attempting to clean the data and passing it through as is from original sources.
 
-snotel_metrics should provide a robust set of tooling for derived calculations that operate on this standard data format and let us easily view trends in the data. Some of this functionality could perhaps be integrated into an upstream library or a MetPy/xclim?
+snotel_metrics should provide a robust set of tooling for derived calculations that operate on this standard data format and let us easily view trends in the data. Some of this functionality could perhaps be integrated into an upstream library or a MetPy/xclim? (Currently the logic lives in the snotel_leaderboard repo and should be moved out)
 
 High-level module structure (should generously split logic within submodules to maintain readability and clarity)
 src/snotel_lib
@@ -98,4 +98,5 @@ Take point geometry and display station location on some sort of map - can stati
 
 * Snow Storage Index (https://www.nature.com/articles/s43247-023-00751-3), can canonically calculate it for previous water years and provide some sort of estimate/metric for how this year might compare?
 
-* A more robust way to look at "interesting" values. e.g. I don't care as much about below average SWE by z-score for a station that normally gets a max of 5cm of SWE per year as I do for a station with 100cm of SWE that is now at 10cm for the same date. Some of this is going to have to be a heuristic or perhaps a user controlled parameter to determine how aggressively one filters out smaller scale stations. 
+* A more robust way to look at "interesting" values. e.g. I don't care as much about below average SWE by z-score for a station that normally gets a max of 5cm of SWE per year as I do for a station with 100cm of SWE that is now at 10cm for the same date. Some of this is going to have to be a heuristic or perhaps a user controlled parameter to determine how aggressively one filters out smaller scale stations. ## Data Source Migration
+See `snotel_lib/DATA_SOURCE_MIGRATION.md` for Gemini's discussion and notes on potential alternatives to the current egagli dataset.

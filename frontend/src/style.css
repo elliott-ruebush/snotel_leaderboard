@@ -498,6 +498,73 @@ tr:nth-child(3) .rank-cell {
   background: rgba(255, 255, 255, 0.2);
 }
 
+/* Methodology Section */
+.methodology-section {
+  margin-bottom: 3rem;
+  scroll-margin-top: 2rem;
+  padding: 2.5rem !important;
+}
+
+.methodology-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 1.5rem;
+}
+
+.methodology-col h3 {
+  color: var(--accent-cyan);
+  font-size: 1.1rem;
+  margin-bottom: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.methodology-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.methodology-list li {
+  line-height: 1.6;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.methodology-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--accent-blue);
+  font-weight: bold;
+}
+
+.methodology-text {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.methodology-footer {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--glass-border);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .methodology-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
 .glass-footer {
   text-align: center;
   padding: 1.5rem;
