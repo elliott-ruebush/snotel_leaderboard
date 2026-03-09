@@ -1,16 +1,18 @@
 # SNOTEL Leaderboard
 
-Fun little web vis of the current highs and lows in the race to SNOTEL fame! 
+Fun little web vis of the current highs and lows in the race to SNOTEL fame (Updated every ~6 hours)! Best viewed during the months with snow :)
 
-Best viewed during the months with snow :)
-
-See it live at: https://elliott-ruebush.github.io/snotel_leaderboard/
-
-Updated every ~6 hours
+See it live at: https://elliott-ruebush.github.io/snotel_leaderboard/ !
 
 Depends on: https://github.com/elliott-ruebush/snotel_lib
 
-See [IDEAS.md](IDEAS.md) for brainstorming on future improvements
+[IDEAS.md](IDEAS.md) for brainstorming on future improvements
+
+## Key Metrics
+- **Dynamic Swings**: Tracks magnitude changes for Snow Depth and SWE over 24h, 48h, and 7-day windows.
+- **Water Year Leaders**: Highlights current leaders for total Snow Depth and Snow Water Equivalent (SWE).
+- **Historical Context**: Provides seasonal consistency ratings (Z-scores) and all-time peak comparisons.
+- **Automated Validation**: Built-in quality control checks for physical range limits and cross-variable consistency.
 
 ## Quick Start (Root Commands)
 
