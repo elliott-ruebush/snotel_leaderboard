@@ -8,24 +8,24 @@ let currentFilter: CategoryFilter = 'all';
 const METRIC_CONFIGS: MetricConfig[] = [
     // --- Snow Depth Group ---
     {
-        id: 'deepest_dumps_24h',
-        title: 'Deepest Dumps (24h)',
+        id: 'snow_depth_swings_24h',
+        title: 'Snow Depth Swings (24h)',
         icon: '❄️',
         desc: 'Highest magnitude snow depth changes in the past 24 hours.',
         type: 'snow',
         filters: ['all', 'snow', '24h']
     },
     {
-        id: 'deepest_dumps_48h',
-        title: 'Deepest Dumps (48h)',
+        id: 'snow_depth_swings_48h',
+        title: 'Snow Depth Swings (48h)',
         icon: '🌨️',
         desc: 'Highest magnitude snow depth change over the past 48 hours.',
         type: 'snow',
         filters: ['all', 'snow', '48h']
     },
     {
-        id: 'deepest_dumps_7d',
-        title: 'Deepest Dumps (7d)',
+        id: 'snow_depth_swings_7d',
+        title: 'Snow Depth Swings (7d)',
         icon: '☃️',
         desc: 'Highest magnitude snow depth change over the past 7 days.',
         type: 'snow',
@@ -33,11 +33,11 @@ const METRIC_CONFIGS: MetricConfig[] = [
     },
     {
         id: 'base_builders',
-        title: 'Biggest Bases (Snow Depth)',
+        title: 'Biggest Bases (Top Snow Depth)',
         icon: '🏔️',
         desc: 'Stations with the highest current snow depth.',
         type: 'snow',
-        filters: ['all', 'snow']
+        filters: ['all', 'snow', 'water_year']
     },
     // --- SWE Group ---
     {
@@ -66,11 +66,11 @@ const METRIC_CONFIGS: MetricConfig[] = [
     },
     {
         id: 'water_bearers',
-        title: 'Snow Storage (Top SWE)',
+        title: 'Snow Storers (Top SWE)',
         icon: '🐋',
         desc: 'Stations with the highest current Snow Water Equivalent (water weight).',
         type: 'swe',
-        filters: ['all', 'swe']
+        filters: ['all', 'swe', 'water_year']
     },
     // --- Historical Group ---
     {
@@ -99,6 +99,7 @@ const FILTER_OPTIONS: { id: CategoryFilter; label: string }[] = [
     { id: '24h', label: '24h Change' },
     { id: '48h', label: '48h Change' },
     { id: '7d', label: '7 Day Change' },
+    { id: 'water_year', label: 'Water Year' },
     { id: 'historical', label: 'Historical' }
 ];
 
@@ -292,7 +293,7 @@ function createRow(item: StationEntry, rank: number, config: MetricConfig): HTML
 
         if (max !== null && min !== null) {
             // Use 0 precision for historical peak snow depth bases
-            extraInfo = `<div class="station-meta" style="color: var(--accent-orange); font-size: 0.75rem;">
+            extraInfo = `<div class="station-meta" style="color: var(--accent-cyan); font-size: 0.75rem;">
                 Peak Snow Depth Range: ${min.toFixed(0)}${suffix} (${minYr}) - ${max.toFixed(0)}${suffix} (${maxYr})
             </div>`;
         }
@@ -310,11 +311,11 @@ function createRow(item: StationEntry, rank: number, config: MetricConfig): HTML
     }
 
     const url = stationUrl(item.station_id);
-    const reasons = item.qc_flags && item.qc_flags.length > 0 
-        ? item.qc_flags.join(', ') 
+    const reasons = item.qc_flags && item.qc_flags.length > 0
+        ? item.qc_flags.join(', ')
         : 'Anomalies detected.';
-    
-    const qcNote = item.is_flagged 
+
+    const qcNote = item.is_flagged
         ? `<div class="qc-flag-note">⚠️ ${reasons}</div>`
         : '';
 

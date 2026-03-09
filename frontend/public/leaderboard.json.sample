@@ -229,7 +229,7 @@
     ],
     "total_count": 811
   },
-  "deepest_dumps_24h": {
+  "snow_depth_swings_24h": {
     "top": [
       {
         "station_id": "679_WA_SNTL",
@@ -341,7 +341,7 @@
     ],
     "total_count": 811
   },
-  "deepest_dumps_48h": {
+  "snow_depth_swings_48h": {
     "top": [
       {
         "station_id": "679_WA_SNTL",
@@ -453,7 +453,7 @@
     ],
     "total_count": 811
   },
-  "deepest_dumps_7d": {
+  "snow_depth_swings_7d": {
     "top": [
       {
         "station_id": "648_WA_SNTL",

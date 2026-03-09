@@ -7,8 +7,11 @@
     "scripts": {
         "data": "cd backend && uv run python -m src.generate_leaderboard",
         "dev": "npm run data && cd frontend && npm run dev",
+        "dev:frontend": "cd frontend && npm run dev",
         "build": "npm run data && cd frontend && npm run build",
+        "build:frontend": "cd frontend && npm run build",
         "preview": "npm run build && cd frontend && npm run preview",
+        "preview:frontend": "npm run build:frontend && cd frontend && npm run preview",
         "test:frontend": "cd frontend && npm run test",
         "test:backend": "cd backend && uv run pytest",
         "test": "npm run test:frontend && npm run test:backend",

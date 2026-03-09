@@ -51,18 +51,15 @@ def prepare_station_data(client: SnotelClient) -> pl.DataFrame:
     )
 
     # 4. Join and with flags and enrich with water years
-    return (
-        qc.data.join(
-            flag_summary,
-            on=[AllSnotelDataSchema.station_id, SnotelDataSchema.datetime],
-            how="left",
-        )
-        .with_columns(
-            is_flagged=pl.col("qc_flags").is_not_null(),
-            qc_flags=pl.col("qc_flags").fill_null(pl.lit([], dtype=pl.List(pl.String))),
-            water_year=pl.col(SnotelDataSchema.datetime).dt.year()
-            + (pl.col(SnotelDataSchema.datetime).dt.month() >= 10).cast(pl.Int32),
-        )
+    return qc.data.join(
+        flag_summary,
+        on=[AllSnotelDataSchema.station_id, SnotelDataSchema.datetime],
+        how="left",
+    ).with_columns(
+        is_flagged=pl.col("qc_flags").is_not_null(),
+        qc_flags=pl.col("qc_flags").fill_null(pl.lit([], dtype=pl.List(pl.String))),
+        water_year=pl.col(SnotelDataSchema.datetime).dt.year()
+        + (pl.col(SnotelDataSchema.datetime).dt.month() >= 10).cast(pl.Int32),
     )
 
 
@@ -94,9 +91,13 @@ def generate_leaderboard():
     leaderboard = {
         "metadata": {
             "generated_at": datetime.now(UTC).isoformat(),
-            "min_date": df.select(pl.col(SnotelDataSchema.datetime).min()).item().isoformat(),
+            "min_date": df.select(pl.col(SnotelDataSchema.datetime).min())
+            .item()
+            .isoformat(),
             "max_date": latest_date.isoformat(),
-            "total_stations": metadata_df.select(pl.col(AllSnotelDataSchema.station_id).n_unique()).item(),
+            "total_stations": metadata_df.select(
+                pl.col(AllSnotelDataSchema.station_id).n_unique()
+            ).item(),
             "units": {
                 "depth": "meter",
                 "swe": "meter",
@@ -106,16 +107,21 @@ def generate_leaderboard():
         },
         "base_builders": get_top_bot(latest_diff_df, "snow_depth_m"),
         "water_bearers": get_top_bot(latest_diff_df, "swe_m"),
-        "deepest_dumps_24h": get_top_bot(latest_diff_df, "snow_depth_24h_diff"),
+        "snow_depth_swings_24h": get_top_bot(latest_diff_df, "snow_depth_24h_diff"),
         "swe_trend_24h": get_top_bot(latest_diff_df, "swe_24h_diff"),
-        "deepest_dumps_48h": get_top_bot(latest_diff_df, "snow_depth_48h_diff"),
+        "snow_depth_swings_48h": get_top_bot(latest_diff_df, "snow_depth_48h_diff"),
         "swe_trend_48h": get_top_bot(latest_diff_df, "swe_48h_diff"),
-        "deepest_dumps_7d": get_top_bot(latest_diff_df, "snow_depth_7d_diff"),
+        "snow_depth_swings_7d": get_top_bot(latest_diff_df, "snow_depth_7d_diff"),
         "swe_trend_7d": get_top_bot(latest_diff_df, "swe_7d_diff"),
         "historical_consistency": get_top_bot(
             consistency_df,
             "std_dev",
-            extra_cols=["all_time_max", "all_time_max_year", "all_time_min", "all_time_min_year"],
+            extra_cols=[
+                "all_time_max",
+                "all_time_max_year",
+                "all_time_min",
+                "all_time_min_year",
+            ],
         ),
         "live_z_score": get_top_bot(
             anomaly_df,

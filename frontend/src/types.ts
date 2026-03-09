@@ -33,7 +33,7 @@ export interface LeaderboardData {
     [key: string]: CategoryData | LeaderboardMetadata;
 }
 
-export type CategoryFilter = 'all' | 'snow' | 'swe' | '24h' | '48h' | '7d' | 'historical';
+export type CategoryFilter = 'all' | 'snow' | 'swe' | '24h' | '48h' | '7d' | 'historical' | 'water_year';
 
 export interface MetricConfig {
     id: string;
