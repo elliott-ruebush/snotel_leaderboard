@@ -38,7 +38,7 @@ def test_generate_leaderboard_smoke(mocker, tmp_path, sample_station_df):
     mock_client_instance.get_all_station_data.return_value = sample_station_df
 
     mocker.patch(
-        "src.generate_leaderboard.SnotelClient", return_value=mock_client_instance
+        "src.generate_leaderboard.EgagliClient", return_value=mock_client_instance
     )
 
     # Patch the output file path to use our tmp directory

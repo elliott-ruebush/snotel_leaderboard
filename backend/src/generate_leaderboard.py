@@ -2,7 +2,7 @@ import json
 from datetime import UTC, datetime, timedelta
 
 import polars as pl
-from snotel_lib import SnotelClient
+from snotel_lib import EgagliClient
 from snotel_lib.validation import DEFAULT_FILTERS, DEFAULT_FLAGS, QCLogSchema, run_qc
 from snotel_lib.schemas import (
     AllSnotelDataSchema,
@@ -18,7 +18,7 @@ from .metrics import (
 )
 
 
-def get_station_metadata(client: SnotelClient) -> pl.DataFrame:
+def get_station_metadata(client: EgagliClient) -> pl.DataFrame:
     metadata_gdf = client.get_stations_metadata()
     metadata_df = pl.from_pandas(metadata_gdf.drop(columns="geometry").reset_index())
 
@@ -32,7 +32,7 @@ def get_station_metadata(client: SnotelClient) -> pl.DataFrame:
     )
 
 
-def prepare_station_data(client: SnotelClient) -> pl.DataFrame:
+def prepare_station_data(client: EgagliClient) -> pl.DataFrame:
     # 1. Fetch and sort
     df = (
         client.get_all_station_data()
@@ -64,7 +64,7 @@ def prepare_station_data(client: SnotelClient) -> pl.DataFrame:
 
 
 def generate_leaderboard():
-    client = SnotelClient()
+    client = EgagliClient()
 
     print("Fetching station metadata...")
     metadata_df = get_station_metadata(client)
