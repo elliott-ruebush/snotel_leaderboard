@@ -1,4 +1,5 @@
 import json
+import logging
 from datetime import UTC, datetime, timedelta
 
 import polars as pl
@@ -15,6 +16,11 @@ from snotel_lib.schemas import (
     StationMetadataSchema,
 )
 from snotel_lib.validation import DEFAULT_FILTERS, DEFAULT_FLAGS, QCLogSchema, run_qc
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+logger = logging.getLogger(__name__)
+
+LEADERBOARD_EXPORT_PATH = "../frontend/public/leaderboard.json"
 
 
 def get_station_metadata(client: EgagliClient) -> pl.DataFrame:
@@ -65,13 +71,13 @@ def prepare_station_data(client: EgagliClient) -> pl.DataFrame:
 def generate_leaderboard():
     client = EgagliClient()
 
-    print("Fetching station metadata...")
+    logger.info("Fetching station metadata...")
     metadata_df = get_station_metadata(client)
 
-    print("Fetching combined station data...")
+    logger.info("Fetching combined station data...")
     df = prepare_station_data(client)
 
-    print("Computing metrics...")
+    logger.info("Computing metrics...")
     # Cutoff for 'recent' leaderboard entries
     latest_date = df.select(pl.col(SnotelDataSchema.datetime).max()).item()
     recent_cutoff = latest_date - timedelta(days=7)
@@ -139,11 +145,10 @@ def generate_leaderboard():
         "Top stations are much higher/lower than average while bottom stations are closest to average"
     )
 
-    output_file = "../frontend/public/leaderboard.json"
-    with open(output_file, "w") as f:
+    with open(LEADERBOARD_EXPORT_PATH, "w") as f:
         json.dump(leaderboard, f, indent=2)
 
-    print(f"Exported leaderboard to {output_file}")
+    logger.info("Exported leaderboard to %s", LEADERBOARD_EXPORT_PATH)
 
 
 if __name__ == "__main__":
