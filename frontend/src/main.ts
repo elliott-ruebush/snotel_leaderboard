@@ -1,5 +1,5 @@
 import { StationEntry, CategoryData, LeaderboardData, MetricConfig, CategoryFilter } from './types';
-import { convert, getSuffix, stationUrl } from './utils';
+import { convert, getSuffix, stationUrl, escapeHtml } from './utils';
 
 let currentUnit: 'metric' | 'imperial' = 'metric';
 let cachedData: LeaderboardData | null = null;
@@ -98,7 +98,7 @@ const FILTER_OPTIONS: { id: CategoryFilter; label: string }[] = [
     { id: 'swe', label: 'Water (SWE)' },
     { id: '24h', label: '24h Change' },
     { id: '48h', label: '48h Change' },
-    { id: '7d', label: '7 Day Change' },
+    { id: '7d', label: '7d Change' },
     { id: 'water_year', label: 'Water Year' },
     { id: 'historical', label: 'Historical' }
 ];
@@ -312,7 +312,7 @@ function createRow(item: StationEntry, rank: number, config: MetricConfig): HTML
 
     const url = stationUrl(item.station_id);
     const reasons = item.qc_flags && item.qc_flags.length > 0
-        ? item.qc_flags.join(', ')
+        ? escapeHtml(item.qc_flags.join(', '))
         : 'Anomalies detected.';
 
     const qcNote = item.is_flagged
@@ -322,8 +322,8 @@ function createRow(item: StationEntry, rank: number, config: MetricConfig): HTML
     tr.innerHTML = `
         <td class="rank-cell" style="font-size: 0.8rem;">${rank}</td>
         <td class="station-cell">
-            <div class="station-name" style="font-size: 0.95rem;">${item.name}</div>
-            <div class="station-meta" style="font-size: 0.75rem;"><a href="${url}" target="_blank" rel="noopener noreferrer" class="station-id-link">${item.station_id}</a> • ${item.state} • ${elevDisplay}${item.data_date ? ' • ' + item.data_date : ''}</div>
+            <div class="station-name" style="font-size: 0.95rem;">${escapeHtml(item.name)}</div>
+            <div class="station-meta" style="font-size: 0.75rem;"><a href="${url}" target="_blank" rel="noopener noreferrer" class="station-id-link">${escapeHtml(item.station_id)}</a> • ${escapeHtml(item.state)} • ${elevDisplay}${item.data_date ? ' • ' + escapeHtml(item.data_date) : ''}</div>
             ${extraInfo}
             ${qcNote}
         </td>

@@ -31,3 +31,12 @@ export function stationUrl(stationId: string): string {
     const siteNum = stationId.split('_')[0];
     return `https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=${siteNum}`;
 }
+
+export function escapeHtml(unsafe: string): string {
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}

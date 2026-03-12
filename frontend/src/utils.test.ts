@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { convert, getSuffix, stationUrl } from './utils'
+import { convert, getSuffix, stationUrl, escapeHtml } from './utils'
 
 describe('SNOTEL Utils', () => {
     describe('convert', () => {
@@ -50,6 +50,18 @@ describe('SNOTEL Utils', () => {
     describe('stationUrl', () => {
         it('should parse station ID and return correct URL', () => {
             expect(stationUrl('679_WA_SNTL')).toBe('https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=679')
+        })
+    })
+
+    describe('escapeHtml', () => {
+        it('should escape malicious HTML characters', () => {
+            expect(escapeHtml('<script>alert("xss")</script>')).toBe('&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;')
+            expect(escapeHtml('Tom & Jerry')).toBe('Tom &amp; Jerry')
+            expect(escapeHtml("It's alive!")).toBe('It&#039;s alive!')
+        })
+
+        it('should return plain text unchanged', () => {
+            expect(escapeHtml('Hello world')).toBe('Hello world')
         })
     })
 })
