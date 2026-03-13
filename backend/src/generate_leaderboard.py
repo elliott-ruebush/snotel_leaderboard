@@ -25,12 +25,12 @@ LEADERBOARD_EXPORT_PATH = "../frontend/public/leaderboard.json"
 
 def get_station_metadata(client: EgagliClient) -> pl.DataFrame:
     metadata_gdf = client.get_stations_metadata()
-    metadata_df = pl.from_pandas(metadata_gdf.drop(columns="geometry").reset_index())
+    metadata_df = pl.from_pandas(metadata_gdf.drop(columns="geometry"))
 
     return metadata_df.filter(pl.col(StationMetadataSchema.network) == "SNOTEL").select(
         [
-            pl.col(StationMetadataSchema.code).alias(AllSnotelDataSchema.station_id),
-            pl.col(StationMetadataSchema.name).alias("station_name"),
+            pl.col(StationMetadataSchema.station_id),
+            pl.col(StationMetadataSchema.station_name),
             pl.col(StationMetadataSchema.state),
             pl.col(StationMetadataSchema.elevation_m),
         ]
