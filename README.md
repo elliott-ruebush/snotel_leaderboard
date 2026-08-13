@@ -2,7 +2,7 @@
 
 Fun little web vis of the current highs and lows in the race to SNOTEL fame (Updated every ~6 hours)! Best viewed during the months with snow :)
 
-See it live at: https://elliott-ruebush.github.io/snotel_leaderboard/ !
+See it live at: https://mertensia.github.io/snotel_leaderboard/ !
 
 Depends on: https://github.com/elliott-ruebush/snotel_lib
 
